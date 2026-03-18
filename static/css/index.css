@@ -295,5 +295,6 @@ figure {
 
 .carousel-dot.active {
   background: #4a4a4a;
-  transform: scale(1.2);
+  width: 12px;
+  height: 12px;
 }
