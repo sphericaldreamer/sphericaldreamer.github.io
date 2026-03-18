@@ -190,7 +190,8 @@ figure {
   flex-shrink: 0;
 }
 
-.carousel-slide video {
+.carousel-slide video,
+.carousel-slide img.carousel-img {
   width: 100%;
   display: block;
   border-radius: 12px;

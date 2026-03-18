@@ -110,7 +110,7 @@
   <div class="container is-max-desktop" style="margin-top: 1.5rem;">
     <div class="columns is-centered">
       <div class="column has-text-centered" style="flex: none; width: 70%;">
-        <p style="font-size: 1.35em;"><span style="font-weight: 700;">TL;DR:</span> SphericalDreamer creates large-scale, fully immersive 360° 3D environments from text by generating and fusing multiple panoramic images into a coherent 3D world.</p>
+        <p style="font-size: 1.35em;"><span style="font-weight: 700;">TL;DR:</span> SphericalDreamer creates large-scale, fully immersive 3D environments from text by generating and fusing multiple panoramic images into a coherent 3D world.</p>
       </div>
     </div>
   </div>
@@ -303,13 +303,89 @@
 
           <br><br>
           <h3 class="title is-4">Comparison with Related Work</h3>
-          <br><br>
-          <div class="columns is-centered has-text-centered">
-            <img src="static/images/main_exp_small__phantom_opera.svg" alt="Comparison with related work" width="100%"/>
+          <br>
+          <div class="video-carousel" id="compCarousel" style="max-width: 100%;">
+            <button class="carousel-arrow prev" aria-label="Previous">
+              <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            </button>
+            <button class="carousel-arrow next" aria-label="Next">
+              <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+            </button>
+            <div class="carousel-track" id="compCarouselTrack">
+              <div class="carousel-slide" data-caption="Grass Field">
+                <img class="carousel-img" src="./static/images/comparisons/main_exp-no_overview__grass_field.svg" alt="Grass Field"/>
+              </div>
+              <div class="carousel-slide" data-caption="Martian Badlands">
+                <img class="carousel-img" src="./static/images/comparisons/main_exp-no_overview__martian_badlands.svg" alt="Martian Badlands"/>
+              </div>
+              <div class="carousel-slide" data-caption="Phantom Opera">
+                <img class="carousel-img" src="./static/images/comparisons/main_exp-no_overview__phantom_opera.svg" alt="Phantom Opera"/>
+              </div>
+              <div class="carousel-slide" data-caption="Phantom Opera (with camera placement)">
+                <img class="carousel-img" src="./static/images/comparisons/main_exp_small__phantom_opera.svg" alt="Phantom Opera (with camera placement)"/>
+              </div>
+              <div class="carousel-slide" data-caption="Underwater">
+                <img class="carousel-img" src="./static/images/comparisons/main_exp-no_overview__underwater.svg" alt="Underwater"/>
+              </div>
+              <div class="carousel-slide" data-caption="Upside Down">
+                <img class="carousel-img" src="./static/images/comparisons/main_exp-no_overview__upside_down.svg" alt="Upside Down"/>
+              </div>
+            </div>
+            <p class="carousel-caption" id="compCarouselCaption">Grass Field</p>
+            <div class="carousel-dots" id="compCarouselDots"></div>
           </div>
           <p>
             <b>Qualitative comparison over the full \(180^\circ \times 360^\circ\) field of view across distant camera viewpoints.</b> Our proposed method SphericalDreamer is the only one to support high quality, full omnidirectional coverage across distant camera viewpoints. In comparison, SceneScape and Wonderjourney renderings are only visually plausible within a restricted field of view, making them non-immersive. For LucidDreamer and LayerPano3D, the second camera lies outside of the 3D world, making them non-navigable.
           </p>
+
+          <script>
+          (function() {
+            var track = document.getElementById('compCarouselTrack');
+            var slides = track.querySelectorAll('.carousel-slide');
+            var caption = document.getElementById('compCarouselCaption');
+            var dotsContainer = document.getElementById('compCarouselDots');
+            var carousel = document.getElementById('compCarousel');
+            var current = 0;
+            var total = slides.length;
+
+            for (var i = 0; i < total; i++) {
+              var dot = document.createElement('button');
+              dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+              dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+              dot.dataset.index = i;
+              dotsContainer.appendChild(dot);
+            }
+            var dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+            function goTo(index) {
+              if (index < 0) index = total - 1;
+              if (index >= total) index = 0;
+              current = index;
+              track.style.transform = 'translateX(-' + (current * 100) + '%)';
+              caption.textContent = slides[current].dataset.caption;
+              dots.forEach(function(d, i) {
+                d.classList.toggle('active', i === current);
+              });
+            }
+
+            carousel.querySelector('.carousel-arrow.prev').addEventListener('click', function() { goTo(current - 1); });
+            carousel.querySelector('.carousel-arrow.next').addEventListener('click', function() { goTo(current + 1); });
+
+            dotsContainer.addEventListener('click', function(e) {
+              if (e.target.classList.contains('carousel-dot')) {
+                goTo(parseInt(e.target.dataset.index));
+              }
+            });
+
+            document.addEventListener('keydown', function(e) {
+              var rect = carousel.getBoundingClientRect();
+              var inView = rect.top < window.innerHeight && rect.bottom > 0;
+              if (!inView) return;
+              if (e.key === 'ArrowLeft') goTo(current - 1);
+              if (e.key === 'ArrowRight') goTo(current + 1);
+            });
+          })();
+          </script>
 
       </div>
     </div>
