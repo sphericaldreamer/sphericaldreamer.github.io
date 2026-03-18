@@ -190,9 +190,20 @@ figure {
   flex-shrink: 0;
 }
 
-.carousel-slide video,
+.carousel-slide video {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 0;
+}
+
 .carousel-slide img.carousel-img {
   width: 100%;
+  height: auto;
   display: block;
   border-radius: 12px;
   cursor: pointer;
