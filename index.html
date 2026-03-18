@@ -237,6 +237,7 @@
               dotsContainer.appendChild(dot);
             }
             var dots = dotsContainer.querySelectorAll('.carousel-dot');
+            carousel.style.setProperty('--carousel-slides', total);
 
             function pauseAllVideos() {
               slides.forEach(function(slide) {
@@ -252,7 +253,7 @@
               if (index >= total) index = 0;
               pauseAllVideos();
               current = index;
-              track.style.transform = 'translateX(-' + (current * 100) + '%)';
+              track.style.transform = 'translateX(-' + (current * 100 / total) + '%)';
               caption.textContent = slides[current].dataset.caption;
               dots.forEach(function(d, i) {
                 d.classList.toggle('active', i === current);
@@ -304,7 +305,7 @@
           <br><br>
           <h3 class="title is-4">Comparison with Related Work</h3>
           <br>
-          <div class="video-carousel" id="compCarousel" style="max-width: 960px;">
+          <div class="video-carousel carousel--comparison" id="compCarousel">
             <button class="carousel-arrow prev" aria-label="Previous">
               <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
             </button>
@@ -320,9 +321,6 @@
               </div>
               <div class="carousel-slide" data-caption="Phantom Opera">
                 <img class="carousel-img" src="./static/images/comparisons/main_exp-no_overview__phantom_opera.svg" alt="Phantom Opera"/>
-              </div>
-              <div class="carousel-slide" data-caption="Phantom Opera (with camera placement)">
-                <img class="carousel-img" src="./static/images/comparisons/main_exp_small__phantom_opera.svg" alt="Phantom Opera (with camera placement)"/>
               </div>
               <div class="carousel-slide" data-caption="Underwater">
                 <img class="carousel-img" src="./static/images/comparisons/main_exp-no_overview__underwater.svg" alt="Underwater"/>
@@ -356,12 +354,13 @@
               dotsContainer.appendChild(dot);
             }
             var dots = dotsContainer.querySelectorAll('.carousel-dot');
+            carousel.style.setProperty('--carousel-slides', total);
 
             function goTo(index) {
               if (index < 0) index = total - 1;
               if (index >= total) index = 0;
               current = index;
-              track.style.transform = 'translateX(-' + (current * 100) + '%)';
+              track.style.transform = 'translateX(-' + (current * 100 / total) + '%)';
               caption.textContent = slides[current].dataset.caption;
               dots.forEach(function(d, i) {
                 d.classList.toggle('active', i === current);
