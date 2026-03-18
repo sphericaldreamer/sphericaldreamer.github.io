@@ -1,1 +1,1 @@
-# Fused-Planes: Improving Planar Representations for Learning Large Sets of 3D Scenes
+# SphericalDreamer: Generating Navigable Immersive 3D Worlds with Panorama Fusion
