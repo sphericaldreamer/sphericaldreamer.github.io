@@ -49,7 +49,7 @@
             </span>
 
             <span class="author-block">
-              <a href="https://scholar.google.com/citations?user=8UW2vacAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Andrew Comport</a><sup>\2</sup>,
+              <a href="https://scholar.google.com/citations?user=8UW2vacAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Andrew Comport</a><sup>2</sup>,
             </span>
           </div>
 
@@ -99,19 +99,8 @@
     </div>
   </div>
 
-<!-- ### -->
+<!-- Abstract -->
   <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <img src="./static/images/fig1.svg" alt="Figure 1" width="100%"/>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Abstract -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
@@ -120,7 +109,17 @@
         </div>
       </div>
     </div>
-    <!--/ Abstract -->
+  </div>
+  <!--/ Abstract -->
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <img src="./static/images/fig1.svg" alt="Figure 1" width="100%"/>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -292,6 +291,7 @@
 
               overlay.addEventListener('click', function() {
                 overlay.classList.add('hidden');
+                video.playbackRate = 0.7;
                 video.play();
               });
 
@@ -319,130 +319,17 @@
           </script>
 
           <br><br>
-          <h3 class="title is-4">Resource Costs</h3>
+          <h3 class="title is-4">Comparison with Related Work</h3>
           <br><br>
           <div class="columns is-centered has-text-centered">
-            <img src="static/images/resource_costs.svg" alt="Method Scheme" width="80%"/>
+            <img src="static/images/main_exp_small__phantom_opera.svg" alt="Comparison with related work" width="100%"/>
           </div>
           <p>
-            <b>Resource costs overview. </b> 
-            To reconstruct a large class of objects, one would consider three options: many per-scene models (e.g. INGP, 3DGS, or planar methods), a multi-scene method (e.g. CodeNeRF), or Fused-Planes. 
-            Our method presents the lowest per-object training time and memory footprint among all planar representations, while maintaining a similar rendering quality. 
-            Circle sizes represent the NVS quality.
+            <b>Qualitative comparison over the full \(180^\circ \times 360^\circ\) field of view across distant camera viewpoints.</b> Our proposed method SphericalDreamer is the only one to support high quality, full omnidirectional coverage across distant camera viewpoints. In comparison, SceneScape and Wonderjourney renderings are only visually plausible within a restricted field of view, making them non-immersive. For LucidDreamer and LayerPano3D, the second camera lies outside of the 3D world, making them non-navigable.
           </p>
-          <br><br>
-          <h3 class="title is-4">Comparison with classical Tri-Planes</h3>
-          <h4 class="title is-5">Shapenet Cars Scenes</h4>
-          <br><br>
-          <div class="columns is-centered has-text-centered">
-            <figure>
-              <video id="large-scale" autoplay muted loop playsinline width="70%">
-                <source src="./static/videos/cars/comp_latent/comp_latent_range(506, 512).mp4"
-                        type="video/mp4">
-              </video>         
-              <figcaption>Fused-Planes</figcaption>
-            </figure>
-          </div>
-          <br><br>
-          <div class="columns is-centered has-text-centered">
-            <figure>
-              <video id="large-scale" autoplay muted loop playsinline width="70%">
-                <source src="./static/videos/cars/comp_rgb/comp_rgb_range(506, 512).mp4"
-                        type="video/mp4">
-              </video>
-              <figcaption>Tri-Planes</figcaption>
-            </figure>
-          </div>
-          <h4 class="title is-5">Basel Faces Scenes</h4>
-          <div class="columns is-centered has-text-centered">
-            <figure>
-              <video id="large-scale" autoplay muted loop playsinline width="70%">
-                <source src="./static/videos/faces/comp_latent/comp_latent_range(506, 512).mp4"
-                        type="video/mp4">
-              </video>         
-              <figcaption>Fused-Planes</figcaption>
-            </figure>
-          </div>
-          <div class="columns is-centered has-text-centered">
-            <figure>
-              <video id="large-scale" autoplay muted loop playsinline width="70%">
-                <source src="./static/videos/faces/comp_rgb/comp_rgb_range(506, 512).mp4"
-                        type="video/mp4">
-              </video>
-              <figcaption>Tri-Planes</figcaption>
-            </figure>
-          </div>
 
-          <!-- NEW CONTENT -->
-        <br><br>
-        <h2 class="title is-2">Analysis of base planes</h2>
-        <h3 class="title is-3">Visualization of rendered base planes</h3>
-        We provide below videos showing the learned <b>base planes</b> for the cars and faces datasets.
-        <br><br>
-        <b>Protocol for base planes visualisations.</b> Recall that, in our standard pipeline, we render a learned Fused-Planes-ULW representation \(T_i\) (corresponding to scene \(i\)) using volume rendering followed by a decoder. 
-        Each fused representation is defined as: 
-        <br><br>
-        &nbsp;&nbsp;&nbsp;\(T_i = \sum_{k=1}^{M} w_i^{k} B_k . \) &nbsp;&nbsp; (a)
-        <br><br>
-        For the visualizations shown below, we do <b>not</b> render \(T_i\). Instead, we directly render individual base planes \(B_k\). 
-        <br><br>
-        <b>Note:</b> In the ULW model, each \(B_k\) has the same dimensionality as \(T_i\), which makes such visualizations possible.
-        <br><br>
-        Using this protocol, we visualize the 10 different <b>base planes</b> below.
-
-        <br><br>
-        <video id="large-scale" autoplay muted loop playsinline webkit-playsinline width="70%">
-          <source src="./static/videos/base_planes_videos/base_planes_faces_looped.mp4" type="video/mp4">
-        </video>
-        <video id="large-scale" autoplay muted loop playsinline webkit-playsinline width="70%">
-          <source src="./static/videos/base_planes_videos/base_planes_cars_trimmed_looped.mp4" type="video/mp4">
-        </video>
-
-        <br><br>
-        <b>Observations:</b> These visualizations show that base planes can be grouped into two categories:
-        <ul style="margin-left: 2em;">
-          <li><strong>Semantic:</strong> some base planes clearly encode object-level structures (e.g., faces, cars),</li>
-          <li><strong>Residual:</strong> other base planes capture finer intra-class variability relative to the semantic base planes.</li>
-        </ul>
-        Together, these base planes contribute to each object representation.
-
-        <br><br>
-        <h3 class="title is-3">Base planes weights values for two objects</h3>
-        We further visualize the values of the learned weights \(W_i\) used to compose each Fused-Planes representation using eq. (a), in the figure below:
-        <br><br>
-        <img src="./static/videos/base_planes_videos/scene_specific_weights.svg" alt="Base planes weights for two cars" width="50%">
-
-        <br><br>
-        The weights above correspond to the following two cars:
-        <br><br>
-        <video id="large-scale" autoplay muted loop playsinline webkit-playsinline width="30%">
-          <source src="./static/videos/base_planes_videos/cars01_looped.mp4" type="video/mp4">
-        </video>
-
-        <br><br>
-        <b>Observations:</b> We observe that a few base planes dominate the final fused representation, and the dominant planes vary across scenes, while other base planes contribute only minor adjustments.
-        
-        <br><br>
-        <b>Note:</b> These visualizations are done using the Fused-Planes-ULW (ultra-lightweight) variant of our method, which trades-off some rendering quality for significant efficiency gains.
-
-        <br><br>
-        <h3 class="title is-3">Interpolating between two weights</h3>
-        We visualize below the Fused-Planes-ULW resulting from a weight interpolation. 
-        Specifically, we first choose two weights \(W_1\) and \(W_2\) corresponding to two scenes. 
-        We then compute \(W_t =  t * W_1 + (1-t) * W_2\) for \( t \in \{0, 0.25, 0.5, 0.75, 1\}\). 
-        Injecting \(W_t\) into eq. (a) yields a set of Fused-Planes-ULW visualized below. 
-        <br><br>
-        <video id="large-scale" autoplay muted loop playsinline webkit-playsinline width="50%">
-          <source src="./static/videos/base_planes_videos/interp_planes_faces_looped.mp4" type="video/mp4">
-        </video>
-
-        <br><br>
-        <b>Observations:</b> Interpolations between weights yield coherent scenes, where we transition smoothly from one scene to another (e.g. the mouth closes gradually across the different faces).
-
-        <br>
-        </div>
-        <br/>
       </div>
+    </div>
   </div>
 </section>
 <!--/ Results -->
