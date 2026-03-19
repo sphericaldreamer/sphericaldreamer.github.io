@@ -18,7 +18,6 @@
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script type="text/javascript" id="MathJax-script" async
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
@@ -60,7 +59,6 @@
 
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- open review Link. -->
               <span class="link-block">
                 <a href=""
                    class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
@@ -70,7 +68,6 @@
                   <span>OpenReview (coming soon)</span>
                 </a>
               </span>
-              <!-- arXiv Link. -->
               <span class="link-block">
                 <a href=""
                    class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
@@ -81,7 +78,6 @@
                 </a>
               </span>
 
-              <!-- Code Link. -->
               <span class="link-block">
                 <a href=""
                    class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
@@ -99,18 +95,57 @@
     </div>
   </div>
 
-<!-- ### -->
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column" style="flex: none; width: 85%;">
-        <img src="./static/images/fig1.svg" alt="Figure 1" width="100%"/>
+  <div class="hero-highlight-bleed">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column" style="flex: none; width: 85%;">
+          <div class="hero-fig-panel">
+            <img src="./static/images/fig1-webpage.svg" alt="Figure 1" width="100%" style="display: block;"/>
+            <div class="world-trio world-trio--hero columns is-variable is-2 is-multiline">
+              <div class="column is-12-mobile is-3-tablet">
+                <div class="world-trio__media">
+                  <video autoplay muted loop playsinline preload="auto">
+                    <source src="./static/videos/3d_worlds/alien_forest.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <p class="carousel-caption world-trio__caption">... an alien forest</p>
+              </div>
+              <div class="column is-12-mobile is-3-tablet">
+                <div class="world-trio__media">
+                  <video autoplay muted loop playsinline preload="auto">
+                    <source src="./static/videos/3d_worlds/martian_desert.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <p class="carousel-caption world-trio__caption">... a martian desert</p>
+              </div>
+              <div class="column is-12-mobile is-3-tablet">
+                <div class="world-trio__media">
+                  <video autoplay muted loop playsinline preload="auto">
+                    <source src="./static/videos/3d_worlds/grass_field.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <p class="carousel-caption world-trio__caption">... a grass field</p>
+              </div>
+              <div class="column is-12-mobile is-3-tablet">
+                <div class="world-trio__media">
+                  <video autoplay muted loop playsinline preload="auto">
+                    <source src="./static/videos/3d_worlds/underwater.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <p class="carousel-caption world-trio__caption">... an underwater world</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="container is-max-desktop" style="margin-top: 1.5rem;">
-    <div class="columns is-centered">
-      <div class="column has-text-centered" style="flex: none; width: 70%;">
-        <p style="font-size: 1.35em;"><span style="font-weight: 700;">TL;DR:</span> SphericalDreamer creates large-scale, fully immersive 3D environments from text by generating and fusing multiple panoramic images into a coherent 3D world.</p>
+    <div class="container is-max-desktop hero-tldr-wrap">
+      <div class="columns is-centered">
+        <div class="column has-text-centered" style="flex: none; width: 70%;">
+          <div class="tldr-box">
+            <p class="tldr-box-text"><span class="tldr-label">TL;DR:</span> SphericalDreamer creates large-scale, fully immersive 3D environments from text by generating and fusing multiple panoramic images into a coherent 3D world.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -118,270 +153,508 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-    <!-- Abstract -->
     <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <div class="content has-text-justified">
-          <span style="font-size: 1.15em; font-weight: 700;">Abstract.</span> The generation of immersive and navigable 3D environments is increasingly prevalent with the growing adoption of virtual reality and 3D content. However, recent methods face a fundamental limitation: they cannot produce 3D worlds that simultaneously (i) are navigable over long-range spatial extents and (ii) cover the complete omnidirectional field of view (\(360^\circ\) horizontally and \(180^\circ\) vertically). To address this challenge, we introduce SphericalDreamer, a method for generating fully immersive and long-range 3D environments from textual prompts. Our approach is built on the generation of multiple panoramic images, which are subsequently lifted into 3D and fused together while maintaining visual and geometric consistency. SphericalDreamer produces highly detailed, fully immersive 3D environments, while substantially improving scale and navigability compared to prior approaches.
+        <div class="abstract-panel">
+          <h2 class="title is-3 has-text-centered">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>The generation of immersive and navigable 3D environments is increasingly prevalent with the growing adoption of virtual reality and 3D content. However, recent methods face a fundamental limitation: they cannot produce 3D worlds that simultaneously (i) are navigable over long-range spatial extents and (ii) cover the complete omnidirectional field of view (\(360^\circ\) horizontally and \(180^\circ\) vertically). To address this challenge, we introduce SphericalDreamer, a method for generating fully immersive and long-range 3D environments from textual prompts. Our approach is built on the generation of multiple panoramic images, which are subsequently lifted into 3D and fused together while maintaining visual and geometric consistency. SphericalDreamer produces highly detailed, fully immersive 3D environments, while substantially improving scale and navigability compared to prior approaches.</p>
+          </div>
         </div>
       </div>
     </div>
-    <!--/ Abstract -->
   </div>
 </section>
 
-<!-- Results -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Results</h2>
+        <h2 class="title is-3">Generated 3D Worlds</h2>
 
-          <h3 class="title is-4">Generated 3D Worlds</h3>
-          <br>
-          <div class="video-carousel" id="worldsCarousel">
-            <button class="carousel-arrow prev" aria-label="Previous">
-              <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-            </button>
-            <button class="carousel-arrow next" aria-label="Next">
-              <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
-            </button>
-            <div class="carousel-track" id="carouselTrack">
-              <div class="carousel-slide" data-caption="Alien Forest">
-                <video preload="metadata" muted loop playsinline><source src="./static/videos/3d_worlds/alien_forest.mp4" type="video/mp4"></video>
-                <div class="play-overlay">
-                  <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="38" fill="rgba(0,0,0,0.45)" stroke="white" stroke-width="2.5"/><polygon points="32,24 60,40 32,56" fill="white"/></svg>
-                </div>
-              </div>
-              <div class="carousel-slide" data-caption="Cave River">
-                <video preload="metadata" muted loop playsinline><source src="./static/videos/3d_worlds/cave_river.mp4" type="video/mp4"></video>
-                <div class="play-overlay">
-                  <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="38" fill="rgba(0,0,0,0.45)" stroke="white" stroke-width="2.5"/><polygon points="32,24 60,40 32,56" fill="white"/></svg>
-                </div>
-              </div>
-              <div class="carousel-slide" data-caption="Crystal Tundra">
-                <video preload="metadata" muted loop playsinline><source src="./static/videos/3d_worlds/crystal_toundra.mp4" type="video/mp4"></video>
-                <div class="play-overlay">
-                  <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="38" fill="rgba(0,0,0,0.45)" stroke="white" stroke-width="2.5"/><polygon points="32,24 60,40 32,56" fill="white"/></svg>
-                </div>
-              </div>
-              <div class="carousel-slide" data-caption="Desolated Landscape">
-                <video preload="metadata" muted loop playsinline><source src="./static/videos/3d_worlds/desolated_landscape.mp4" type="video/mp4"></video>
-                <div class="play-overlay">
-                  <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="38" fill="rgba(0,0,0,0.45)" stroke="white" stroke-width="2.5"/><polygon points="32,24 60,40 32,56" fill="white"/></svg>
-                </div>
-              </div>
-              <div class="carousel-slide" data-caption="Grass Field">
-                <video preload="metadata" muted loop playsinline><source src="./static/videos/3d_worlds/grass_field.mp4" type="video/mp4"></video>
-                <div class="play-overlay">
-                  <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="38" fill="rgba(0,0,0,0.45)" stroke="white" stroke-width="2.5"/><polygon points="32,24 60,40 32,56" fill="white"/></svg>
-                </div>
-              </div>
-              <div class="carousel-slide" data-caption="Jungle">
-                <video preload="metadata" muted loop playsinline><source src="./static/videos/3d_worlds/jungle.mp4" type="video/mp4"></video>
-                <div class="play-overlay">
-                  <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="38" fill="rgba(0,0,0,0.45)" stroke="white" stroke-width="2.5"/><polygon points="32,24 60,40 32,56" fill="white"/></svg>
-                </div>
-              </div>
-              <div class="carousel-slide" data-caption="Lavender Fields">
-                <video preload="metadata" muted loop playsinline><source src="./static/videos/3d_worlds/lavander_fields.mp4" type="video/mp4"></video>
-                <div class="play-overlay">
-                  <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="38" fill="rgba(0,0,0,0.45)" stroke="white" stroke-width="2.5"/><polygon points="32,24 60,40 32,56" fill="white"/></svg>
-                </div>
-              </div>
-              <div class="carousel-slide" data-caption="Martian Desert">
-                <video preload="metadata" muted loop playsinline><source src="./static/videos/3d_worlds/martian_desert.mp4" type="video/mp4"></video>
-                <div class="play-overlay">
-                  <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="38" fill="rgba(0,0,0,0.45)" stroke="white" stroke-width="2.5"/><polygon points="32,24 60,40 32,56" fill="white"/></svg>
-                </div>
-              </div>
-              <div class="carousel-slide" data-caption="Tomato Fields">
-                <video preload="metadata" muted loop playsinline><source src="./static/videos/3d_worlds/tomato_fields.mp4" type="video/mp4"></video>
-                <div class="play-overlay">
-                  <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="38" fill="rgba(0,0,0,0.45)" stroke="white" stroke-width="2.5"/><polygon points="32,24 60,40 32,56" fill="white"/></svg>
-                </div>
-              </div>
-              <div class="carousel-slide" data-caption="Underwater">
-                <video preload="metadata" muted loop playsinline><source src="./static/videos/3d_worlds/underwater.mp4" type="video/mp4"></video>
-                <div class="play-overlay">
-                  <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="38" fill="rgba(0,0,0,0.45)" stroke="white" stroke-width="2.5"/><polygon points="32,24 60,40 32,56" fill="white"/></svg>
-                </div>
-              </div>
-              <div class="carousel-slide" data-caption="Wetlands">
-                <video preload="metadata" muted loop playsinline><source src="./static/videos/3d_worlds/wetlands.mp4" type="video/mp4"></video>
-                <div class="play-overlay">
-                  <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="38" fill="rgba(0,0,0,0.45)" stroke="white" stroke-width="2.5"/><polygon points="32,24 60,40 32,56" fill="white"/></svg>
-                </div>
-              </div>
-            </div>
-            <p class="carousel-caption" id="carouselCaption">Alien Forest</p>
-            <div class="carousel-dots" id="carouselDots"></div>
-          </div>
+          <p>SphericalDreamer creates fully immersive 3D environments with complete 360° horizontal and 180° vertical coverage, allowing users to freely explore and navigate within the scene.</p>
 
-          <script>
-          (function() {
-            var track = document.getElementById('carouselTrack');
-            var slides = track.querySelectorAll('.carousel-slide');
-            var caption = document.getElementById('carouselCaption');
-            var dotsContainer = document.getElementById('carouselDots');
-            var carousel = document.getElementById('worldsCarousel');
-            var current = 0;
-            var total = slides.length;
-
-            // Build dot indicators
-            for (var i = 0; i < total; i++) {
-              var dot = document.createElement('button');
-              dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-              dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-              dot.dataset.index = i;
-              dotsContainer.appendChild(dot);
-            }
-            var dots = dotsContainer.querySelectorAll('.carousel-dot');
-            carousel.style.setProperty('--carousel-slides', total);
-
-            function pauseAllVideos() {
-              slides.forEach(function(slide) {
-                var v = slide.querySelector('video');
-                v.pause();
-                v.currentTime = 0;
-                slide.querySelector('.play-overlay').classList.remove('hidden');
-              });
-            }
-
-            function goTo(index) {
-              if (index < 0) index = total - 1;
-              if (index >= total) index = 0;
-              pauseAllVideos();
-              current = index;
-              track.style.transform = 'translateX(-' + (current * 100 / total) + '%)';
-              caption.textContent = slides[current].dataset.caption;
-              dots.forEach(function(d, i) {
-                d.classList.toggle('active', i === current);
-              });
-            }
-
-            carousel.querySelector('.carousel-arrow.prev').addEventListener('click', function() { goTo(current - 1); });
-            carousel.querySelector('.carousel-arrow.next').addEventListener('click', function() { goTo(current + 1); });
-
-            dotsContainer.addEventListener('click', function(e) {
-              if (e.target.classList.contains('carousel-dot')) {
-                goTo(parseInt(e.target.dataset.index));
-              }
-            });
-
-            slides.forEach(function(slide) {
-              var overlay = slide.querySelector('.play-overlay');
-              var video = slide.querySelector('video');
-
-              overlay.addEventListener('click', function() {
-                overlay.classList.add('hidden');
-                video.playbackRate = 0.7;
-                video.play();
-              });
-
-              video.addEventListener('click', function() {
-                if (!video.paused) {
-                  video.pause();
-                  overlay.classList.remove('hidden');
-                }
-              });
-
-              video.addEventListener('ended', function() {
-                overlay.classList.remove('hidden');
-              });
-            });
-
-            // Keyboard navigation
-            document.addEventListener('keydown', function(e) {
-              var rect = carousel.getBoundingClientRect();
-              var inView = rect.top < window.innerHeight && rect.bottom > 0;
-              if (!inView) return;
-              if (e.key === 'ArrowLeft') goTo(current - 1);
-              if (e.key === 'ArrowRight') goTo(current + 1);
-            });
-          })();
-          </script>
 
           <br><br>
-          <h3 class="title is-4">Comparison with Related Work</h3>
-          <br>
-          <div class="video-carousel carousel--comparison" id="compCarousel">
-            <button class="carousel-arrow prev" aria-label="Previous">
+          <div class="video-carousel video-carousel--triple" id="tripleWorldsCarousel">
+            <button type="button" class="carousel-arrow prev" aria-label="Show previous videos">
               <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
             </button>
-            <button class="carousel-arrow next" aria-label="Next">
+            <button type="button" class="carousel-arrow next" aria-label="Show next videos">
               <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
             </button>
-            <div class="carousel-track" id="compCarouselTrack">
-              <div class="carousel-slide" data-caption="Grass Field">
-                <img class="carousel-img" src="./static/images/comparisons/main_exp-no_overview__grass_field.svg" alt="Grass Field"/>
+            <div class="carousel-viewport carousel-viewport--triple">
+            <div class="carousel-track" id="tripleCarouselTrack">
+              <div class="carousel-slide" data-caption="Lavender fields">
+                <div class="triple-slide-media">
+                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/lavander_fields.mp4" type="video/mp4"></video>
+                </div>
+                <p class="carousel-caption triple-slide-caption">Lavender fields</p>
               </div>
-              <div class="carousel-slide" data-caption="Martian Badlands">
-                <img class="carousel-img" src="./static/images/comparisons/main_exp-no_overview__martian_badlands.svg" alt="Martian Badlands"/>
+              <div class="carousel-slide" data-caption="Crystal tundra">
+                <div class="triple-slide-media">
+                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/crystal_toundra.mp4" type="video/mp4"></video>
+                </div>
+                <p class="carousel-caption triple-slide-caption">Crystal tundra</p>
               </div>
-              <div class="carousel-slide" data-caption="Phantom Opera">
-                <img class="carousel-img" src="./static/images/comparisons/main_exp-no_overview__phantom_opera.svg" alt="Phantom Opera"/>
+              <div class="carousel-slide" data-caption="Jungle">
+                <div class="triple-slide-media">
+                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/jungle.mp4" type="video/mp4"></video>
+                </div>
+                <p class="carousel-caption triple-slide-caption">Jungle</p>
               </div>
-              <div class="carousel-slide" data-caption="Underwater">
-                <img class="carousel-img" src="./static/images/comparisons/main_exp-no_overview__underwater.svg" alt="Underwater"/>
+              <div class="carousel-slide" data-caption="Cave river">
+                <div class="triple-slide-media">
+                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/cave_river.mp4" type="video/mp4"></video>
+                </div>
+                <p class="carousel-caption triple-slide-caption">Cave river</p>
               </div>
-              <div class="carousel-slide" data-caption="Upside Down">
-                <img class="carousel-img" src="./static/images/comparisons/main_exp-no_overview__upside_down.svg" alt="Upside Down"/>
+              <div class="carousel-slide" data-caption="Desolated landscape">
+                <div class="triple-slide-media">
+                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/desolated_landscape.mp4" type="video/mp4"></video>
+                </div>
+                <p class="carousel-caption triple-slide-caption">Desolated landscape</p>
+              </div>
+              <div class="carousel-slide" data-caption="Tomato fields">
+                <div class="triple-slide-media">
+                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/tomato_fields.mp4" type="video/mp4"></video>
+                </div>
+                <p class="carousel-caption triple-slide-caption">Tomato fields</p>
+              </div>
+              <div class="carousel-slide" data-caption="Wetlands">
+                <div class="triple-slide-media">
+                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/wetlands.mp4" type="video/mp4"></video>
+                </div>
+                <p class="carousel-caption triple-slide-caption">Wetlands</p>
+              </div>
+              <div class="carousel-slide" data-caption="Alien forest">
+                <div class="triple-slide-media">
+                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/alien_forest.mp4" type="video/mp4"></video>
+                </div>
+                <p class="carousel-caption triple-slide-caption">Alien forest</p>
+              </div>
+              <div class="carousel-slide" data-caption="Martian desert">
+                <div class="triple-slide-media">
+                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/martian_desert.mp4" type="video/mp4"></video>
+                </div>
+                <p class="carousel-caption triple-slide-caption">Martian desert</p>
+              </div>
+              <div class="carousel-slide" data-caption="Grass field">
+                <div class="triple-slide-media">
+                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/grass_field.mp4" type="video/mp4"></video>
+                </div>
+                <p class="carousel-caption triple-slide-caption">Grass field</p>
+              </div>
+              <div class="carousel-slide" data-caption="Underwater world">
+                <div class="triple-slide-media">
+                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/underwater.mp4" type="video/mp4"></video>
+                </div>
+                <p class="carousel-caption triple-slide-caption">Underwater world</p>
               </div>
             </div>
-            <p class="carousel-caption" id="compCarouselCaption">Grass Field</p>
-            <div class="carousel-dots" id="compCarouselDots"></div>
+            </div>
+            <div class="carousel-dots" id="tripleCarouselDots"></div>
           </div>
-          <p style="margin-top: 2em;">
-            <b>Qualitative comparison over the full \(180^\circ \times 360^\circ\) field of view across distant camera viewpoints.</b> Our proposed method SphericalDreamer is the only one to support high quality, full omnidirectional coverage across distant camera viewpoints. In comparison, SceneScape and Wonderjourney renderings are only visually plausible within a restricted field of view, making them non-immersive. For LucidDreamer and LayerPano3D, the second camera lies outside of the 3D world, making them non-navigable.
-          </p>
 
           <script>
           (function() {
-            var track = document.getElementById('compCarouselTrack');
-            var slides = track.querySelectorAll('.carousel-slide');
-            var caption = document.getElementById('compCarouselCaption');
-            var dotsContainer = document.getElementById('compCarouselDots');
-            var carousel = document.getElementById('compCarousel');
-            var current = 0;
-            var total = slides.length;
+            var GAP = 14;
+            var TRANSITION_MS = 500;
+            var PLAYBACK_RATE = 0.7;
+            var SYNC_MS = 200;
+            var SYNC_EPS = 0.12;
+            var track = document.getElementById('tripleCarouselTrack');
+            var carousel = document.getElementById('tripleWorldsCarousel');
+            var tripleViewport = carousel.querySelector('.carousel-viewport--triple');
+            var btnPrev = carousel.querySelector('.carousel-arrow.prev');
+            var btnNext = carousel.querySelector('.carousel-arrow.next');
+            var dotsContainer = document.getElementById('tripleCarouselDots');
 
-            for (var i = 0; i < total; i++) {
+            var slidesOrig = Array.prototype.slice.call(track.querySelectorAll('.carousel-slide'));
+            var realTotal = slidesOrig.length;
+            var visible = 3;
+            var infinite = realTotal > visible;
+            var maxIdx = infinite ? (realTotal - 1) : Math.max(0, realTotal - visible);
+            var clonePad = visible + 2;
+            var prefixCount = infinite ? Math.min(clonePad, realTotal) : 0;
+            var suffixCount = prefixCount;
+
+            if (infinite) {
+              for (var pi = prefixCount - 1; pi >= 0; pi--) {
+                var srcPre = slidesOrig[realTotal - prefixCount + pi];
+                var clonePre = srcPre.cloneNode(true);
+                clonePre.setAttribute('data-carousel-clone', 'prefix');
+                track.insertBefore(clonePre, track.firstChild);
+              }
+              for (var sj = 0; sj < suffixCount; sj++) {
+                var cloneSuf = slidesOrig[sj].cloneNode(true);
+                cloneSuf.setAttribute('data-carousel-clone', 'suffix');
+                track.appendChild(cloneSuf);
+              }
+            }
+
+            var slides = track.querySelectorAll('.carousel-slide');
+            var current = 0;
+            var stepPx = 0;
+            var wrapLock = false;
+            var wrapTimer = null;
+            var wrapEndHandler = null;
+
+            carousel.style.setProperty('--carousel-slides', realTotal);
+            carousel.style.setProperty('--triple-gap', GAP + 'px');
+
+            var numDots = infinite ? realTotal : (maxIdx + 1);
+            for (var i = 0; i < numDots; i++) {
               var dot = document.createElement('button');
               dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-              dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+              dot.setAttribute('aria-label', 'Go to triple carousel position ' + (i + 1));
               dot.dataset.index = i;
               dotsContainer.appendChild(dot);
             }
             var dots = dotsContainer.querySelectorAll('.carousel-dot');
-            carousel.style.setProperty('--carousel-slides', total);
 
-            function goTo(index) {
-              if (index < 0) index = total - 1;
-              if (index >= total) index = 0;
-              current = index;
-              track.style.transform = 'translateX(-' + (current * 100 / total) + '%)';
-              caption.textContent = slides[current].dataset.caption;
+            var groupsByKey = {};
+
+            function mediaKey(v) {
+              var candidates = [v.currentSrc, v.src];
+              var srcEl = v.querySelector('source');
+              if (srcEl) {
+                if (srcEl.getAttribute('src')) candidates.push(srcEl.getAttribute('src'));
+                if (srcEl.src) candidates.push(srcEl.src);
+              }
+              for (var i = 0; i < candidates.length; i++) {
+                if (!candidates[i]) continue;
+                try {
+                  return new URL(candidates[i], document.baseURI).pathname;
+                } catch (err) {}
+              }
+              return '';
+            }
+
+            function refreshGroups() {
+              groupsByKey = {};
+              Array.prototype.forEach.call(track.querySelectorAll('[data-triple-video]'), function(v) {
+                var k = mediaKey(v);
+                if (!k) return;
+                if (!groupsByKey[k]) groupsByKey[k] = [];
+                groupsByKey[k].push(v);
+              });
+            }
+
+            function leaderVideoForKey(key) {
+              for (var oi = 0; oi < slidesOrig.length; oi++) {
+                var cand = slidesOrig[oi].querySelector('[data-triple-video]');
+                if (cand && mediaKey(cand) === key) return cand;
+              }
+              var g = groupsByKey[key];
+              return g && g[0] ? g[0] : null;
+            }
+
+            function setTimeForLogicalIndex(logicalIdx, t) {
+              var slide = slidesOrig[logicalIdx];
+              if (!slide) return;
+              var ref = slide.querySelector('[data-triple-video]');
+              if (!ref) return;
+              var key = mediaKey(ref);
+              var list = groupsByKey[key];
+              if (!list || !list.length) return;
+              var d = list[0].duration;
+              if (d && isFinite(d)) t = Math.min(Math.max(0, t), Math.max(0, d - 0.04));
+              else t = Math.max(0, t);
+              list.forEach(function(v) {
+                try {
+                  if (Math.abs(v.currentTime - t) > 0.02) v.currentTime = t;
+                } catch (ignore) {}
+              });
+            }
+
+            function syncVisibleTimesToLogical(physicalStart, logicalIndices) {
+              for (var k = 0; k < visible; k++) {
+                var el = slides[physicalStart + k];
+                if (!el) continue;
+                var v = el.querySelector('[data-triple-video]');
+                if (v) setTimeForLogicalIndex(logicalIndices[k], v.currentTime);
+              }
+            }
+
+            function syncBeforeForwardSnap() {
+              syncVisibleTimesToLogical(prefixCount + realTotal, [0, 1, 2]);
+            }
+
+            function syncBeforeBackwardSnap() {
+              syncVisibleTimesToLogical(prefixCount - 1, [realTotal - 1, 0, 1]);
+            }
+
+            function restartGroupFromVideo(v) {
+              if (!track.contains(v)) return;
+              var k = mediaKey(v);
+              if (!groupsByKey[k]) refreshGroups();
+              var list = groupsByKey[k];
+              if (!list) return;
+              list.forEach(function(node) {
+                node.currentTime = 0;
+                node.playbackRate = PLAYBACK_RATE;
+                node.play().catch(function() {});
+              });
+            }
+
+            function syncClonesToLeaders() {
+              Object.keys(groupsByKey).forEach(function(key) {
+                var lead = leaderVideoForKey(key);
+                if (!lead || lead.readyState < 1) return;
+                var t = lead.currentTime;
+                groupsByKey[key].forEach(function(v) {
+                  if (v !== lead && Math.abs(v.currentTime - t) > SYNC_EPS) {
+                    try {
+                      v.currentTime = t;
+                    } catch (ignore) {}
+                  }
+                });
+              });
+            }
+
+            function resumeAllVideos() {
+              Object.keys(groupsByKey).forEach(function(key) {
+                groupsByKey[key].forEach(function(v) {
+                  v.playbackRate = PLAYBACK_RATE;
+                  if (v.paused && v.readyState >= 2) v.play().catch(function() {});
+                });
+              });
+            }
+
+            refreshGroups();
+            Array.prototype.forEach.call(track.querySelectorAll('[data-triple-video]'), function(v) {
+              v.defaultPlaybackRate = PLAYBACK_RATE;
+              v.playbackRate = PLAYBACK_RATE;
+              v.addEventListener('loadedmetadata', function onMeta() {
+                v.playbackRate = PLAYBACK_RATE;
+                refreshGroups();
+              });
+              v.addEventListener('ended', function onEnd() {
+                restartGroupFromVideo(v);
+              });
+              v.play().catch(function() {});
+            });
+            setInterval(syncClonesToLeaders, SYNC_MS);
+
+            function translateXLogical() {
+              if (!infinite) return current * stepPx;
+              return (prefixCount + current) * stepPx;
+            }
+
+            function clearWrapState() {
+              if (wrapTimer) {
+                clearTimeout(wrapTimer);
+                wrapTimer = null;
+              }
+              if (wrapEndHandler) {
+                track.removeEventListener('transitionend', wrapEndHandler);
+                wrapEndHandler = null;
+              }
+              wrapLock = false;
+            }
+
+            function syncLayout() {
+              var W = tripleViewport ? tripleViewport.clientWidth : carousel.clientWidth;
+              if (!W || W < 1) {
+                requestAnimationFrame(syncLayout);
+                return;
+              }
+              var s;
+              if (realTotal <= visible) {
+                s = realTotal > 0 ? W / realTotal : W;
+              } else {
+                s = Math.max(0, (W - (visible - 1) * GAP) / visible);
+              }
+              var physicalCount = slides.length;
+              var trackWidth = physicalCount * s + Math.max(0, physicalCount - 1) * GAP;
+              track.style.width = trackWidth + 'px';
+              stepPx = s + GAP;
+              slides.forEach(function(sl) {
+                sl.style.flex = '0 0 ' + s + 'px';
+                sl.style.width = s + 'px';
+                sl.style.minWidth = '0';
+              });
+              track.style.transform = 'translateX(-' + translateXLogical() + 'px)';
+            }
+
+            function updateButtons() {
+              btnPrev.disabled = false;
+              btnNext.disabled = false;
+            }
+
+            function updateDots() {
               dots.forEach(function(d, i) {
                 d.classList.toggle('active', i === current);
               });
             }
 
-            carousel.querySelector('.carousel-arrow.prev').addEventListener('click', function() { goTo(current - 1); });
-            carousel.querySelector('.carousel-arrow.next').addEventListener('click', function() { goTo(current + 1); });
+            function applyTransform(instant) {
+              var x = translateXLogical();
+              if (instant) {
+                var prev = track.style.transition;
+                track.style.transition = 'none';
+                track.style.transform = 'translateX(-' + x + 'px)';
+                void track.offsetWidth;
+                track.style.transition = prev;
+              } else {
+                track.style.transform = 'translateX(-' + x + 'px)';
+              }
+            }
+
+            function goTo(index) {
+              clearWrapState();
+              if (index < 0) index = 0;
+              if (index > maxIdx) index = maxIdx;
+              current = index;
+              applyTransform(false);
+              resumeAllVideos();
+              updateButtons();
+              updateDots();
+            }
+
+            function finishForwardWrap() {
+              if (!wrapLock) return;
+              clearWrapState();
+              syncBeforeForwardSnap();
+              current = 0;
+              applyTransform(true);
+              resumeAllVideos();
+              updateDots();
+              updateButtons();
+            }
+
+            function finishBackwardWrap() {
+              if (!wrapLock) return;
+              clearWrapState();
+              syncBeforeBackwardSnap();
+              current = maxIdx;
+              applyTransform(true);
+              resumeAllVideos();
+              updateDots();
+              updateButtons();
+            }
+
+            function goStep(delta) {
+              if (wrapLock) return;
+
+              if (!infinite) {
+                var nextSimple = current + delta;
+                var instantWrap =
+                  (delta > 0 && current >= maxIdx) ||
+                  (delta < 0 && current <= 0);
+                if (delta > 0 && nextSimple > maxIdx) nextSimple = 0;
+                if (delta < 0 && nextSimple < 0) nextSimple = maxIdx;
+                current = nextSimple;
+                applyTransform(instantWrap);
+                resumeAllVideos();
+                updateButtons();
+                updateDots();
+                return;
+              }
+
+              if (delta > 0 && current === maxIdx) {
+                wrapLock = true;
+                var ghostForward = (prefixCount + realTotal) * stepPx;
+                track.style.transform = 'translateX(-' + ghostForward + 'px)';
+                wrapEndHandler = function(e) {
+                  if (e.propertyName !== 'transform') return;
+                  finishForwardWrap();
+                };
+                track.addEventListener('transitionend', wrapEndHandler);
+                wrapTimer = setTimeout(finishForwardWrap, TRANSITION_MS + 80);
+                updateButtons();
+                return;
+              }
+
+              if (delta < 0 && current === 0) {
+                wrapLock = true;
+                var ghostBack = (prefixCount - 1) * stepPx;
+                track.style.transform = 'translateX(-' + ghostBack + 'px)';
+                wrapEndHandler = function(e) {
+                  if (e.propertyName !== 'transform') return;
+                  finishBackwardWrap();
+                };
+                track.addEventListener('transitionend', wrapEndHandler);
+                wrapTimer = setTimeout(finishBackwardWrap, TRANSITION_MS + 80);
+                updateButtons();
+                return;
+              }
+
+              current += delta;
+              applyTransform(false);
+              resumeAllVideos();
+              updateButtons();
+              updateDots();
+            }
+
+            window.__navTripleGallery = function(delta) {
+              if (delta < 0) goStep(-1);
+              else if (delta > 0) goStep(1);
+            };
+
+            btnPrev.addEventListener('click', function() { goStep(-1); });
+            btnNext.addEventListener('click', function() { goStep(1); });
 
             dotsContainer.addEventListener('click', function(e) {
               if (e.target.classList.contains('carousel-dot')) {
-                goTo(parseInt(e.target.dataset.index));
+                goTo(parseInt(e.target.dataset.index, 10));
               }
             });
 
+            syncLayout();
+            updateButtons();
+            updateDots();
+
+            var resizeTimer;
+            function onResize() {
+              clearTimeout(resizeTimer);
+              resizeTimer = setTimeout(function() {
+                syncLayout();
+              }, 80);
+            }
+            window.addEventListener('resize', onResize);
+            if (typeof ResizeObserver !== 'undefined' && tripleViewport) {
+              new ResizeObserver(onResize).observe(tripleViewport);
+            }
+
             document.addEventListener('keydown', function(e) {
-              var rect = carousel.getBoundingClientRect();
-              var inView = rect.top < window.innerHeight && rect.bottom > 0;
-              if (!inView) return;
-              if (e.key === 'ArrowLeft') goTo(current - 1);
-              if (e.key === 'ArrowRight') goTo(current + 1);
+              if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+              if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+              var delta = e.key === 'ArrowLeft' ? -1 : 1;
+              var singleEl = document.getElementById('worldsCarousel');
+              var tripleEl = document.getElementById('tripleWorldsCarousel');
+              function intersectArea(el) {
+                if (!el) return 0;
+                var r = el.getBoundingClientRect();
+                var top = Math.max(0, r.top);
+                var bottom = Math.min(window.innerHeight, r.bottom);
+                var left = Math.max(0, r.left);
+                var right = Math.min(window.innerWidth, r.right);
+                var h = bottom - top;
+                var w = right - left;
+                return h > 0 && w > 0 ? h * w : 0;
+              }
+              var active = document.activeElement;
+              if (tripleEl && tripleEl.contains(active) && typeof window.__navTripleGallery === 'function') {
+                e.preventDefault();
+                window.__navTripleGallery(delta);
+                return;
+              }
+              if (singleEl && singleEl.contains(active) && typeof window.__navSingleGallery === 'function') {
+                e.preventDefault();
+                window.__navSingleGallery(delta);
+                return;
+              }
+              var aT = intersectArea(tripleEl);
+              var aS = intersectArea(singleEl);
+              if (aT > aS && aT > 0 && typeof window.__navTripleGallery === 'function') {
+                e.preventDefault();
+                window.__navTripleGallery(delta);
+              } else if (aS > 0 && typeof window.__navSingleGallery === 'function') {
+                e.preventDefault();
+                window.__navSingleGallery(delta);
+              }
             });
           })();
           </script>
@@ -390,20 +663,17 @@
     </div>
   </div>
 </section>
-<!--/ Results -->
-
-<!-- Method -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Method</h2>
-        <br><br>
+        <br>
         <div class="content has-text-justified">
-          <div class="columns is-centered has-text-centered">
-            <img src="static/images/method_main.svg" alt="Method Scheme" width="100%"/>
+          <div class="columns is-centered has-text-centered method-figure-wrap">
+            <img src="static/images/method_main.svg" alt="Method Scheme" style="width: 97%; height: auto;"/>
           </div>
-          <p>
+          <p class="method-overview-caption">
             <b>Method overview.</b>
             SphericalDreamer generates navigable immersive 3D worlds from textual prompts. 
             In <b>Stage I</b>, a set of spherical building blocks \(\{\mathcal{S}_i\}_{i=0}^{N-1}\) is generated by lifting multiple text-generated layered depth panoramas into 3D. Each block \(\mathcal{S}_i\), also referred to as a sphere, can be geometrically transformed to create a connection interface on its right side, left side, or both. In <b>Stage II</b>, consecutive spheres \(\mathcal{S}_i\) and \(\mathcal{S}_{i+1}\) are positioned to face each other, forming a capsule-like configuration with a missing central region. An intermediate RGB–D view is rendered, its missing regions are inpainted, and the newly synthesized content is lifted into 3D to produce a filling block \(\mathcal{B}_i^{\mathrm{fill}}\), thereby completing the connection between the two spheres. 
@@ -414,9 +684,234 @@
     </div>
   </div>
 </section>
-<!--/ Method -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Qualitative Experiment</h2>
+        <div class="qual-panel-widget">
+          <div class="qual-panel-top-row">
+            <div class="qual-panel-corner-spacer" aria-hidden="true"></div>
+            <div class="qual-panel-column-headings">
+              <div class="qual-panel-column-headings__label">Camera 1</div>
+              <div class="qual-panel-column-headings__label">Camera 2</div>
+            </div>
+          </div>
+          <div class="qual-panel-body">
+            <div class="qual-panel-row-labels" id="qualPanelRowLabels"></div>
+            <div class="video-carousel carousel--panel" id="qualPanelCarousel" tabindex="0">
+          <button type="button" class="carousel-arrow prev" aria-label="Previous panel">
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+          </button>
+          <button type="button" class="carousel-arrow next" aria-label="Next panel">
+            <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+          </button>
+          <div class="carousel-track" id="qualPanelCarouselTrack"></div>
+          <p class="carousel-caption" id="qualPanelCarouselCaption"></p>
+          <div class="carousel-dots" id="qualPanelCarouselDots"></div>
+            </div>
+          </div>
+        </div>
+        <script>
+        (function() {
+          var QX_BASE = './static/images/qualitative_experiments';
+          var QX_SCENES = [
+            'phantom_opera_cave_river',
+            'sound_of_music_grass_field',
+            'coral_reef_canyon',
+            'martian_badlands_2'
+          ];
+          var QX_ROW_CAPTIONS = [
+            'Cave river',
+            'Grass field',
+            'Underwater world',
+            'Desert'
+          ];
+          function qxCam(methodFolder, cam) {
+            var suf = cam === 1 ? 'eqr_x0.png' : 'eqr_x1.png';
+            return QX_SCENES.map(function(scene) {
+              return QX_BASE + '/' + scene + '/' + methodFolder + '/' + suf;
+            });
+          }
+          var QUAL_PANELS = [
+            {
+              caption: 'SphericalDreamer (ours)',
+              columns: [
+                { images: qxCam('sphericaldreamer', 1) },
+                { images: qxCam('sphericaldreamer', 2) }
+              ]
+            },
+            {
+              caption: 'SceneScape',
+              columns: [
+                { images: qxCam('scenescape', 1) },
+                { images: qxCam('scenescape', 2) }
+              ]
+            },
+            {
+              caption: 'WonderJourney',
+              columns: [
+                { images: qxCam('wonderjourney', 1) },
+                { images: qxCam('wonderjourney', 2) }
+              ]
+            },
+            {
+              caption: 'LayerPano3D',
+              columns: [
+                { images: qxCam('layerpano3d', 1) },
+                { images: qxCam('layerpano3d', 2) }
+              ]
+            },
+            {
+              caption: 'LucidDreamer',
+              columns: [
+                { images: qxCam('luciddreamer', 1) },
+                { images: qxCam('luciddreamer', 2) }
+              ]
+            }
+          ];
 
-<!-- BibTex -->
+          function buildPanelSlides(track, panels) {
+            track.textContent = '';
+            panels.forEach(function(panel) {
+              var slide = document.createElement('div');
+              slide.className = 'carousel-slide qual-panel-slide';
+              slide.dataset.caption = panel.caption;
+              var wrap = document.createElement('div');
+              wrap.className = 'qual-panel';
+              var rowsWrap = document.createElement('div');
+              rowsWrap.className = 'qual-panel__rows';
+              var nRows = (panel.columns[0] && panel.columns[0].images) ? panel.columns[0].images.length : 0;
+              for (var r = 0; r < nRows; r++) {
+                var rowEl = document.createElement('div');
+                rowEl.className = 'qual-panel__row';
+                for (var c = 0; c < panel.columns.length; c++) {
+                  var src = panel.columns[c].images[r];
+                  var cell = document.createElement('div');
+                  cell.className = 'qual-panel__cell';
+                  var img = document.createElement('img');
+                  img.className = 'qual-panel__img';
+                  img.src = src;
+                  img.alt = '';
+                  img.loading = 'lazy';
+                  img.addEventListener('load', scheduleQualRowSync);
+                  img.addEventListener('error', scheduleQualRowSync);
+                  cell.appendChild(img);
+                  rowEl.appendChild(cell);
+                }
+                rowsWrap.appendChild(rowEl);
+              }
+              wrap.appendChild(rowsWrap);
+              slide.appendChild(wrap);
+              track.appendChild(slide);
+            });
+          }
+
+          var rowLabelsEl = document.getElementById('qualPanelRowLabels');
+          if (QX_ROW_CAPTIONS.length !== QX_SCENES.length) {
+            console.warn('QX_ROW_CAPTIONS and QX_SCENES must have the same length.');
+          }
+          QX_ROW_CAPTIONS.forEach(function(text) {
+            var row = document.createElement('div');
+            row.className = 'qual-panel-row-label';
+            var inner = document.createElement('span');
+            inner.className = 'qual-panel-row-label__text';
+            inner.textContent = text;
+            row.appendChild(inner);
+            rowLabelsEl.appendChild(row);
+          });
+
+          var track = document.getElementById('qualPanelCarouselTrack');
+          var captionEl = document.getElementById('qualPanelCarouselCaption');
+          var dotsContainer = document.getElementById('qualPanelCarouselDots');
+          var carousel = document.getElementById('qualPanelCarousel');
+          var slides;
+          var current = 0;
+          var qualRowSyncTimer = null;
+          function syncQualPanelRowHeights() {
+            if (!slides || !slides.length) return;
+            var slide = slides[current];
+            if (!slide || !rowLabelsEl) return;
+            var imgRows = slide.querySelectorAll('.qual-panel__row');
+            var labels = rowLabelsEl.querySelectorAll('.qual-panel-row-label');
+            for (var i = 0; i < labels.length; i++) {
+              var row = imgRows[i];
+              var h = row ? row.getBoundingClientRect().height : 0;
+              labels[i].style.minHeight = h > 0 ? h + 'px' : '';
+            }
+          }
+          function scheduleQualRowSync() {
+            if (qualRowSyncTimer) clearTimeout(qualRowSyncTimer);
+            qualRowSyncTimer = setTimeout(function() {
+              qualRowSyncTimer = null;
+              syncQualPanelRowHeights();
+            }, 30);
+          }
+
+          buildPanelSlides(track, QUAL_PANELS);
+          slides = track.querySelectorAll('.carousel-slide');
+          var total = slides.length;
+          if (total === 0) return;
+
+          for (var i = 0; i < total; i++) {
+            var dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Go to panel ' + (i + 1));
+            dot.dataset.index = String(i);
+            dotsContainer.appendChild(dot);
+          }
+          var dots = dotsContainer.querySelectorAll('.carousel-dot');
+          carousel.style.setProperty('--carousel-slides', String(total));
+
+          function goTo(index) {
+            if (index < 0) index = total - 1;
+            if (index >= total) index = 0;
+            current = index;
+            track.style.transform = 'translateX(-' + (current * 100 / total) + '%)';
+            captionEl.textContent = slides[current].dataset.caption || '';
+            dots.forEach(function(d, j) {
+              d.classList.toggle('active', j === current);
+            });
+            scheduleQualRowSync();
+            setTimeout(scheduleQualRowSync, 520);
+          }
+
+          carousel.querySelector('.carousel-arrow.prev').addEventListener('click', function() { goTo(current - 1); });
+          carousel.querySelector('.carousel-arrow.next').addEventListener('click', function() { goTo(current + 1); });
+          dotsContainer.addEventListener('click', function(e) {
+            var t = e.target;
+            if (t.classList.contains('carousel-dot')) {
+              goTo(parseInt(t.dataset.index, 10));
+            }
+          });
+          goTo(0);
+          window.addEventListener('resize', scheduleQualRowSync);
+          track.addEventListener('transitionend', function(e) {
+            if (e.propertyName === 'transform') scheduleQualRowSync();
+          });
+
+          carousel.addEventListener('click', function() {
+            carousel.focus({ preventScroll: true });
+          });
+
+          document.addEventListener('keydown', function(e) {
+            if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+            if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+            if (!carousel.contains(document.activeElement)) return;
+            e.preventDefault();
+            if (e.key === 'ArrowLeft') goTo(current - 1);
+            else goTo(current + 1);
+          });
+        })();
+        </script>
+        <p class="content has-text-justified" style="margin-top: 2em;">
+          <b>Qualitative comparison over the full \(180^\circ \times 360^\circ\) field of view across distant camera viewpoints.</b> Our proposed method SphericalDreamer is the only one to support high quality, full omnidirectional coverage across distant camera viewpoints. In comparison, SceneScape and Wonderjourney renderings are only visually plausible within a restricted field of view, making them non-immersive. For LucidDreamer and LayerPano3D, the second camera lies outside of the 3D world, making them non-navigable.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
@@ -430,10 +925,6 @@
     </code></pre>
   </div>
 </section>
-<!--/ BibTex -->
-
-
-<!-- Thanks -->
 <footer class="footer">
   <div class="container">
     <div class="columns is-centered">
@@ -447,7 +938,49 @@
     </div>
   </div>
 </footer>
-<!--/ Thanks -->
-
+<script>
+(function() {
+  if (window.matchMedia('(hover: none)').matches) return;
+  var IDLE_MS = 4500;
+  document.querySelectorAll('.video-carousel').forEach(function(carousel) {
+    var idleTimer = null;
+    function showArrows() {
+      carousel.classList.add('carousel-arrows-visible');
+    }
+    function hideArrows() {
+      carousel.classList.remove('carousel-arrows-visible');
+    }
+    function clearIdle() {
+      if (idleTimer) {
+        clearTimeout(idleTimer);
+        idleTimer = null;
+      }
+    }
+    function resetIdle() {
+      clearIdle();
+      idleTimer = setTimeout(function() {
+        idleTimer = null;
+        hideArrows();
+      }, IDLE_MS);
+    }
+    carousel.addEventListener('mouseenter', function() {
+      showArrows();
+      resetIdle();
+    });
+    carousel.addEventListener('mousemove', function() {
+      showArrows();
+      resetIdle();
+    });
+    carousel.addEventListener('mouseleave', function() {
+      clearIdle();
+      hideArrows();
+      var ae = document.activeElement;
+      if (ae && carousel.contains(ae)) {
+        ae.blur();
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>

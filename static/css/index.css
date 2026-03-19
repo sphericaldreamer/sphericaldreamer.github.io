@@ -2,6 +2,161 @@ body {
   font-family: 'Noto Sans', sans-serif;
 }
 
+/* Avoid rare horizontal scrollbar from full-bleed hero band (100vw vs scrollbar) */
+html {
+  overflow-x: clip;
+}
+
+/* Viewport-wide light band behind hero figure + TL;DR (not a card—full screen width at any zoom) */
+.hero-highlight-bleed {
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  box-sizing: border-box;
+  background: rgb(251, 252, 253);
+  padding: 1.5rem 0 2rem;
+}
+
+/* Hero TL;DR — vertical rhythm vs figure above and abstract section below */
+.hero-tldr-wrap {
+  margin-top: 2.25rem;
+  margin-bottom: 2.25rem;
+}
+
+/* Hero TL;DR — plain text, no card */
+.tldr-box {
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.tldr-box-text {
+  font-size: 1.35em;
+  margin: 0;
+  line-height: 1.5;
+  color: #363636;
+}
+
+.tldr-label {
+  font-weight: 700;
+}
+
+/* Method: figure flush; caption carries spacing above */
+.method-figure-wrap {
+  margin-bottom: 0 !important;
+}
+
+.method-figure-wrap img {
+  display: block;
+  margin-bottom: 0;
+}
+
+.content .method-overview-caption {
+  margin-top: 1rem;
+}
+
+/* Generated 3D Worlds: three preview videos, full row width */
+.world-trio {
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.world-trio__media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #1a1a1a;
+}
+
+.world-trio__media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  margin: 0;
+}
+
+.world-trio__caption {
+  margin-top: 0.6rem;
+}
+
+/* Soft panel — hero figure + videos only */
+.hero-fig-panel {
+  background: rgb(243, 248, 252);
+  border: none;
+  border-radius: 16px;
+  padding: 1rem 1.1rem 1.2rem;
+  box-shadow: 0 1px 3px rgba(30, 60, 100, 0.08);
+}
+
+/* Abstract: semantic wrapper only, no card */
+.abstract-panel {
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+/* Hero: trio directly under Fig.1, same column width as figure */
+.world-trio--hero {
+  margin-top: 0.45rem;
+  margin-bottom: 0;
+}
+
+/* Align video row with full-width fig; equal tile size (Bulma padding would make
+   center columns narrower: they had padding on both sides, edge columns only one). */
+.hero-fig-panel .world-trio--hero.columns.is-variable {
+  --hero-tile-gap: calc(2 * var(--columnGap, 0.5rem));
+  display: flex !important;
+  flex-wrap: wrap !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  column-gap: var(--hero-tile-gap);
+  row-gap: var(--hero-tile-gap);
+}
+
+.hero-fig-panel .world-trio--hero.columns.is-variable > .column {
+  padding: 0 !important;
+  min-width: 0 !important;
+}
+
+@media screen and (min-width: 769px) {
+  .hero-fig-panel .world-trio--hero.columns.is-variable > .column {
+    flex: 1 1 0 !important;
+    width: auto !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero-fig-panel .world-trio--hero.columns.is-variable > .column {
+    flex: none !important;
+    width: 100% !important;
+  }
+}
+
+.world-trio--hero .world-trio__caption {
+  font-size: 0.85rem;
+}
+
+/* Match hero background; avoid dark #1a1a1a “seams” at corners / between cells */
+.world-trio--hero .world-trio__media {
+  background: #fff;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+/* Slight overscale so video fully covers the square (hides subpixel gaps at rounded clip) */
+.world-trio--hero .world-trio__media video {
+  transform: scale(1.03);
+  transform-origin: center center;
+  backface-visibility: hidden;
+}
 
 .footer .icon-link {
     font-size: 25px;
@@ -67,9 +222,6 @@ body {
     font-weight: bolder;
 }
 
-.publication-authors {
-}
-
 .publication-authors a {
    color: hsl(204, 86%, 53%) !important;
 }
@@ -83,10 +235,6 @@ body {
 }
 
 .publication-banner img {
-}
-
-.publication-authors {
-  /*color: #4286f4;*/
 }
 
 .publication-video {
@@ -169,6 +317,11 @@ figure {
   align-items: center;
 }
 
+/* Flex columns default min-width:auto; wide in-flow tracks can blow up layout */
+section.section .columns > .column.is-full-width {
+  min-width: 0;
+}
+
 /* Carousel: one visible slide = 100% of container; track width = N × 100% */
 .video-carousel {
   position: relative;
@@ -179,8 +332,276 @@ figure {
   border-radius: 12px;
 }
 
-.video-carousel.carousel--comparison {
-  max-width: 500px;
+/* Panel carousel: fixed column + row captions outside the sliding track */
+.column.is-full-width:has(> .qual-panel-widget) > .title.is-3 {
+  margin-bottom: 3.0rem;
+}
+
+.qual-panel-widget {
+  --qual-panel-gutter: 2.00rem; /* room for -90° text (slightly tighter rail) */
+  --qual-panel-chrome-gap: 0.4rem; /* vertical: Camera titles → image block */
+  --qual-panel-row-rail: 0.125rem; /* horizontal: row titles → images (~2px, tight) */
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.qual-panel-top-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: var(--qual-panel-chrome-gap);
+  box-sizing: border-box;
+}
+
+.qual-panel-corner-spacer {
+  width: calc(var(--qual-panel-gutter) + var(--qual-panel-row-rail));
+  flex-shrink: 0;
+}
+
+.qual-panel-column-headings {
+  flex: 1 1 0;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 0.75rem;
+  padding: 0 2px;
+  box-sizing: border-box;
+}
+
+.qual-panel-column-headings__label {
+  text-align: center;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #363636;
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+  line-height: 1.25;
+  min-height: 1.25em;
+}
+
+.qual-panel-body {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0;
+  min-width: 0;
+  overflow: visible;
+}
+
+.qual-panel-row-labels {
+  flex: 0 0 auto;
+  width: var(--qual-panel-gutter);
+  padding: 0.15rem var(--qual-panel-row-rail) 0.15rem 0;
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.45rem; /* must match #qualPanelCarousel .qual-panel__rows gap */
+  align-self: flex-start;
+  overflow: visible;
+}
+
+.qual-panel-row-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  margin: 0;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+.qual-panel-row-label__text {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #363636;
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+  line-height: 1.2;
+  white-space: nowrap;
+  transform: rotate(-90deg);
+  transform-origin: center center;
+}
+
+/* Avoid clipping rotated row captions (flex/min-width stacking) */
+.column.is-full-width:has(.qual-panel-widget) {
+  overflow: visible;
+}
+
+.qual-panel-body .video-carousel.carousel--panel {
+  flex: 1 1 0;
+  min-width: 0;
+  margin-left: 0;
+}
+
+.video-carousel.carousel--panel {
+  max-width: 100%;
+  width: 100%;
+}
+
+#qualPanelCarousel:focus:not(:focus-visible) {
+  outline: none;
+}
+
+#qualPanelCarousel .carousel-slide {
+  aspect-ratio: auto;
+}
+
+#qualPanelCarousel .qual-panel {
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#qualPanelCarousel .qual-panel__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  width: 100%;
+  min-width: 0;
+}
+
+#qualPanelCarousel .qual-panel__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 0.75rem;
+  align-items: center;
+  min-width: 0;
+}
+
+/* Cell is a neutral wrapper; rounding applies only to each <img> (the bitmap). */
+#qualPanelCarousel .qual-panel__cell {
+  width: 100%;
+  background: transparent;
+}
+
+#qualPanelCarousel .qual-panel__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+  border-radius: 12px;
+}
+
+#qualPanelCarousel .carousel-caption {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 0.7rem;
+  line-height: 1.3;
+  color: #333;
+}
+
+@media screen and (max-width: 768px) {
+  .qual-panel-widget {
+    --qual-panel-gutter: 3.5rem;
+    --qual-panel-chrome-gap: 0.35rem;
+    --qual-panel-row-rail: 0.125rem;
+  }
+
+  #qualPanelCarousel .qual-panel__rows,
+  .qual-panel-row-labels {
+    gap: 0.4rem;
+  }
+
+  #qualPanelCarousel .qual-panel__row {
+    column-gap: 0.4rem;
+  }
+
+  .qual-panel-column-headings {
+    column-gap: 0.4rem;
+  }
+
+  .qual-panel-column-headings__label {
+    font-size: 0.8rem;
+  }
+
+  .qual-panel-row-label__text {
+    font-size: 0.68rem;
+  }
+
+  .qual-panel-top-row {
+    gap: 0.4rem;
+  }
+
+  #qualPanelCarousel .carousel-caption {
+    font-size: 1.12rem;
+  }
+}
+
+/* Triple-wide video carousel: 3 clips visible, full content width */
+.video-carousel.video-carousel--triple {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+
+/* Clip wide track so flex column min-width:auto does not grow to track width (infinite layout) */
+.video-carousel.video-carousel--triple .carousel-viewport--triple {
+  overflow: hidden;
+  width: 100%;
+  min-width: 0;
+}
+
+.video-carousel.video-carousel--triple .carousel-viewport--triple .carousel-track {
+  --triple-gap: 14px;
+  gap: 0;
+  width: auto; /* set in JS */
+  box-sizing: border-box;
+}
+
+/* Margin spacing avoids flex-gap compositing artifacts; width math matches JS (see triple carousel script). */
+.video-carousel.video-carousel--triple .carousel-slide:not(:last-child) {
+  margin-right: var(--triple-gap);
+}
+
+.video-carousel.video-carousel--triple .carousel-slide {
+  aspect-ratio: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.video-carousel.video-carousel--triple .triple-slide-media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  background: transparent;
+}
+
+.video-carousel.video-carousel--triple .triple-slide-media video {
+  position: absolute;
+  inset: auto;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%) scale(1.02);
+  object-fit: cover;
+  display: block;
+  margin: 0;
+  cursor: default;
+  border-radius: 0;
+}
+
+.video-carousel.video-carousel--triple .triple-slide-caption {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+.carousel-arrow:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.video-carousel.carousel-arrows-visible .carousel-arrow:disabled {
+  opacity: 0.4;
 }
 
 .carousel-track {
@@ -218,20 +639,9 @@ figure {
   cursor: pointer;
 }
 
-/* Comparison carousel: fixed aspect from figure ratio, image contained */
-#compCarousel .carousel-slide {
-  aspect-ratio: 2482 / 3950;
-}
-
-#compCarousel .carousel-slide img.carousel-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-  border-radius: 12px;
-  cursor: pointer;
+/* Triple carousel: caption sits below video; undo single-slide :has(video) rules */
+.video-carousel.video-carousel--triple .carousel-slide:has(video) {
+  aspect-ratio: auto;
 }
 
 .carousel-slide .play-overlay {
@@ -289,7 +699,33 @@ figure {
   justify-content: center;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-  transition: background 0.2s ease, box-shadow 0.2s ease;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.35s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Shown while pointer is over carousel (JS) or keyboard focus inside */
+.video-carousel.carousel-arrows-visible .carousel-arrow,
+.video-carousel:focus-within .carousel-arrow {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Touch / no hover: keep arrows usable */
+@media (hover: none) {
+  .video-carousel .carousel-arrow {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-arrow {
+    transition-duration: 0.01ms;
+  }
 }
 
 .carousel-arrow:hover {
