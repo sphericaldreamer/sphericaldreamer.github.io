@@ -770,3 +770,217 @@ section.section .columns > .column.is-full-width {
   width: 12px;
   height: 12px;
 }
+
+/* ── Ablation carousel widget ── */
+
+.abl-carousel-widget {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.abl-col-headings {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+  padding: 0 2px;
+}
+
+.abl-col-heading {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #363636;
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+  line-height: 1.25;
+}
+
+.abl-carousel-widget .video-carousel.carousel--panel {
+  max-width: 100%;
+  width: 100%;
+  flex: none;
+}
+
+#ablNCarousel:focus:not(:focus-visible),
+#ablImgCarousel:focus:not(:focus-visible) {
+  outline: none;
+}
+
+#ablNCarousel .carousel-slide,
+#ablImgCarousel .carousel-slide {
+  aspect-ratio: auto;
+}
+
+.abl-grid {
+  display: grid;
+  gap: 0.5rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.abl-grid__cell {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+#ablNCarousel .carousel-slide .abl-grid__cell video {
+  position: static;
+  inset: auto;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+  margin: 0;
+  border-radius: 8px;
+  cursor: default;
+}
+
+#ablImgCarousel .carousel-slide .abl-grid__cell img {
+  position: static;
+  inset: auto;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+  margin: 0;
+  border-radius: 8px;
+}
+
+#ablNCarousel .carousel-caption,
+#ablImgCarousel .carousel-caption {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 0.7rem;
+  line-height: 1.3;
+  color: #333;
+}
+
+@media screen and (max-width: 768px) {
+  .abl-col-heading {
+    font-size: 0.72rem;
+  }
+
+  .abl-grid {
+    gap: 0.3rem;
+  }
+
+  .abl-col-headings {
+    gap: 0.3rem;
+  }
+
+  #ablNCarousel .carousel-caption,
+  #ablImgCarousel .carousel-caption {
+    font-size: 1.12rem;
+  }
+}
+
+/* ── LDI panel carousel ── */
+
+#ldiPanelCarousel:focus:not(:focus-visible) {
+  outline: none;
+}
+
+#ldiPanelCarousel .carousel-slide {
+  aspect-ratio: auto;
+}
+
+#ldiPanelCarousel .qual-panel {
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#ldiPanelCarousel .qual-panel__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  width: 100%;
+  min-width: 0;
+}
+
+#ldiPanelCarousel .qual-panel__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 0.75rem;
+  align-items: center;
+  min-width: 0;
+}
+
+#ldiPanelCarousel .qual-panel__cell {
+  width: 100%;
+  background: transparent;
+}
+
+#ldiPanelCarousel .qual-panel__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+  border-radius: 12px;
+}
+
+#ldiPanelCarousel .carousel-caption {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 0.7rem;
+  line-height: 1.3;
+  color: #333;
+}
+
+/* ── Depth static panel ── */
+
+.qual-panel-body #depthStaticPanel {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+#depthStaticPanel {
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#depthPanelRows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  width: 100%;
+  min-width: 0;
+}
+
+#depthStaticPanel .qual-panel__row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 0.75rem;
+  align-items: center;
+  min-width: 0;
+}
+
+#depthStaticPanel .qual-panel__cell {
+  width: 100%;
+  background: transparent;
+}
+
+#depthStaticPanel .qual-panel__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+  border-radius: 12px;
+}
+
+@media screen and (max-width: 768px) {
+  #ldiPanelCarousel .qual-panel__rows,
+  #depthPanelRows {
+    gap: 0.4rem;
+  }
+
+  #ldiPanelCarousel .qual-panel__row,
+  #depthStaticPanel .qual-panel__row {
+    column-gap: 0.4rem;
+  }
+}

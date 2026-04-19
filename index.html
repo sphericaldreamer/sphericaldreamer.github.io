@@ -666,7 +666,143 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Comparisons with Related Work</h2>
+        <h2 class="title is-3">Experiments</h2>
+
+        <h3 class="title is-4" style="margin-top: 1.5rem; margin-bottom: 1rem;">Varying World Size</h3>
+        <div class="abl-carousel-widget">
+          <div class="abl-col-headings" id="ablNColHeadings"></div>
+          <div class="video-carousel carousel--panel" id="ablNCarousel" tabindex="0">
+            <button type="button" class="carousel-arrow prev" aria-label="Previous scene">
+              <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            </button>
+            <button type="button" class="carousel-arrow next" aria-label="Next scene">
+              <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+            </button>
+            <div class="carousel-track" id="ablNTrack"></div>
+            <p class="carousel-caption" id="ablNCaption"></p>
+            <div class="carousel-dots" id="ablNDots"></div>
+          </div>
+        </div>
+        <script>
+        (function() {
+          var BASE = './static/videos/ablation_N_walk';
+          var SCENES = [
+            { key: 'bioluminescent_forest_2', caption: 'Bioluminescent Forest' },
+            { key: 'phantom_opera_cave_river', caption: 'Phantom Opera Cave River' }
+          ];
+          var N_VALUES = [3, 5, 7];
+          var cols = N_VALUES.length;
+
+          var headingsEl = document.getElementById('ablNColHeadings');
+          headingsEl.style.gridTemplateColumns = 'repeat(' + cols + ', minmax(0, 1fr))';
+          N_VALUES.forEach(function(n) {
+            var label = document.createElement('div');
+            label.className = 'abl-col-heading';
+            label.textContent = 'N = ' + n;
+            headingsEl.appendChild(label);
+          });
+
+          var track = document.getElementById('ablNTrack');
+          var captionEl = document.getElementById('ablNCaption');
+          var dotsContainer = document.getElementById('ablNDots');
+          var carousel = document.getElementById('ablNCarousel');
+
+          var slideVideos = [];
+
+          SCENES.forEach(function(scene) {
+            var slide = document.createElement('div');
+            slide.className = 'carousel-slide';
+            slide.dataset.caption = scene.caption;
+            var grid = document.createElement('div');
+            grid.className = 'abl-grid';
+            grid.style.gridTemplateColumns = 'repeat(' + cols + ', minmax(0, 1fr))';
+            var videos = [];
+            N_VALUES.forEach(function(n) {
+              var cell = document.createElement('div');
+              cell.className = 'abl-grid__cell';
+              var video = document.createElement('video');
+              video.muted = true;
+              video.playsInline = true;
+              video.preload = 'auto';
+              var source = document.createElement('source');
+              source.src = BASE + '/ABL_N--' + scene.key + '--N=' + n + '__rendered_trajectories__walk.mp4';
+              source.type = 'video/mp4';
+              video.defaultPlaybackRate = 0.7;
+              video.playbackRate = 0.7;
+              video.appendChild(source);
+              cell.appendChild(video);
+              grid.appendChild(cell);
+              videos.push(video);
+            });
+            slideVideos.push(videos);
+            slide.appendChild(grid);
+            track.appendChild(slide);
+          });
+
+          function restartSlideVideos(idx) {
+            var vids = slideVideos[idx];
+            if (!vids) return;
+            vids.forEach(function(v) {
+              v.currentTime = 0;
+              v.playbackRate = 0.7;
+              v.play().catch(function() {});
+            });
+          }
+
+          slideVideos.forEach(function(vids, idx) {
+            var endedFlags = vids.map(function() { return false; });
+            vids.forEach(function(v, vi) {
+              v.addEventListener('ended', function() {
+                endedFlags[vi] = true;
+                var allDone = endedFlags.every(function(f) { return f; });
+                if (allDone) {
+                  for (var k = 0; k < endedFlags.length; k++) endedFlags[k] = false;
+                  restartSlideVideos(idx);
+                }
+              });
+            });
+          });
+
+          var slides = track.querySelectorAll('.carousel-slide');
+          var total = slides.length;
+          if (total === 0) return;
+          var current = 0;
+
+          for (var i = 0; i < total; i++) {
+            var dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Go to scene ' + (i + 1));
+            dot.dataset.index = String(i);
+            dotsContainer.appendChild(dot);
+          }
+          var dots = dotsContainer.querySelectorAll('.carousel-dot');
+          carousel.style.setProperty('--carousel-slides', String(total));
+
+          function goTo(index) {
+            if (index < 0) index = total - 1;
+            if (index >= total) index = 0;
+            current = index;
+            track.style.transform = 'translateX(-' + (current * 100 / total) + '%)';
+            captionEl.textContent = slides[current].dataset.caption || '';
+            dots.forEach(function(d, j) { d.classList.toggle('active', j === current); });
+            restartSlideVideos(current);
+          }
+
+          carousel.querySelector('.carousel-arrow.prev').addEventListener('click', function() { goTo(current - 1); });
+          carousel.querySelector('.carousel-arrow.next').addEventListener('click', function() { goTo(current + 1); });
+          dotsContainer.addEventListener('click', function(e) {
+            if (e.target.classList.contains('carousel-dot')) goTo(parseInt(e.target.dataset.index, 10));
+          });
+          goTo(0);
+          carousel.addEventListener('click', function() { carousel.focus({ preventScroll: true }); });
+        })();
+        </script>
+        <p class="content has-text-justified" style="margin-top: 2em;">
+          <b>Effect of the number of fused panoramas (N) on world generation.</b> 3D worlds generated with varying numbers of fused panoramas (N&nbsp;=&nbsp;3, 5, 7). Perceptual quality metrics (BRISQUE, CLIP-IQA, Q-Align) and semantic consistency scores (CLIP-Score, C-CLIP) remain stable across all world sizes, demonstrating that SphericalDreamer scales effectively with N without quality degradation.
+        </p>
+
+        <h3 class="title is-4" style="margin-top: 2.5rem; margin-bottom: 1rem;">Comparisons with Related Methods</h3>
         <div class="qual-panel-widget">
           <div class="qual-panel-top-row">
             <div class="qual-panel-corner-spacer" aria-hidden="true"></div>
@@ -886,6 +1022,126 @@
         <p class="content has-text-justified" style="margin-top: 2em;">
           <b>Qualitative comparison over the full \(180^\circ \times 360^\circ\) field of view across distant camera viewpoints.</b> Our proposed method SphericalDreamer is the only one to support high quality, full omnidirectional coverage across distant camera viewpoints. In comparison, SceneScape and Wonderjourney renderings are only visually plausible within a restricted field of view, making them non-immersive. For LucidDreamer and LayerPano3D, the second camera lies outside of the 3D world, making them non-navigable.
         </p>
+
+        <h3 class="title is-4" style="margin-top: 2.5rem; margin-bottom: 1rem;">Ablation Study</h3>
+        <div class="abl-carousel-widget">
+          <div class="abl-col-headings" id="ablImgColHeadings"></div>
+          <div class="video-carousel carousel--panel" id="ablImgCarousel" tabindex="0">
+            <button type="button" class="carousel-arrow prev" aria-label="Previous scene">
+              <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            </button>
+            <button type="button" class="carousel-arrow next" aria-label="Next scene">
+              <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+            </button>
+            <div class="carousel-track" id="ablImgTrack"></div>
+            <p class="carousel-caption" id="ablImgCaption"></p>
+            <div class="carousel-dots" id="ablImgDots"></div>
+          </div>
+        </div>
+        <script>
+        (function() {
+          var BASE = './static/images/visuals_ABL_hlblend_ldi/rot+trans';
+          var SCENES = [
+            { key: 'bioluminescent_forest_2', caption: 'Bioluminescent Forest', frames: [19, 17] },
+            { key: 'martian_badlands_2', caption: 'Martian Badlands', frames: [5, 19] },
+            { key: 'phantom_opera_cave_river', caption: 'Phantom Opera Cave River', frames: [7, 15] },
+            { key: 'sound_of_music_grass_field', caption: 'Sound of Music Grass Field', frames: [3, 18] }
+          ];
+          var METHODS = [
+            { label: 'Reference\n(LDI + Harmonic Blending)',
+              path: function(s, f) { return BASE + '/' + s + '/sphericaldreamer/rgb/_temp_' + f + '.webp'; } },
+            { label: 'No LDI',
+              path: function(s, f) { return BASE + '/ABL_HblendLdi--' + s + '--ldi/sphericaldreamer/rgb/_temp_' + f + '.webp'; } },
+            { label: 'No Harmonic Blending\n(Naive Blending instead)',
+              path: function(s, f) { return BASE + '/ABL_HblendLdi--' + s + '--ldi+hblend=naive/sphericaldreamer/rgb/_temp_' + f + '.webp'; } },
+            { label: 'No Harmonic Blending\n(Depth Interpolation instead)',
+              path: function(s, f) { return BASE + '/ABL_HblendLdi--' + s + '--ldi+hblend=interp_bilinear_plus_nn/sphericaldreamer/rgb/_temp_' + f + '.webp'; } },
+            { label: 'No Harmonic Blending\n(Depth Inpainting instead)',
+              path: function(s, f) { return BASE + '/ABL_HblendLdi--' + s + '--ldi+hblend=inpaint/sphericaldreamer/rgb/_temp_' + f + '.webp'; } }
+          ];
+          var cols = METHODS.length;
+
+          function pad4(n) { return ('0000' + n).slice(-4); }
+
+          var headingsEl = document.getElementById('ablImgColHeadings');
+          headingsEl.style.gridTemplateColumns = 'repeat(' + cols + ', minmax(0, 1fr))';
+          METHODS.forEach(function(m) {
+            var label = document.createElement('div');
+            label.className = 'abl-col-heading';
+            label.innerHTML = m.label.replace(/\n/g, '<br>');
+            headingsEl.appendChild(label);
+          });
+
+          var track = document.getElementById('ablImgTrack');
+          var captionEl = document.getElementById('ablImgCaption');
+          var dotsContainer = document.getElementById('ablImgDots');
+          var carousel = document.getElementById('ablImgCarousel');
+
+          SCENES.forEach(function(scene) {
+            var slide = document.createElement('div');
+            slide.className = 'carousel-slide';
+            slide.dataset.caption = scene.caption;
+            var container = document.createElement('div');
+            scene.frames.forEach(function(frameIdx, rowIdx) {
+              var grid = document.createElement('div');
+              grid.className = 'abl-grid';
+              if (rowIdx > 0) grid.style.marginTop = '6px';
+              grid.style.gridTemplateColumns = 'repeat(' + cols + ', minmax(0, 1fr))';
+              METHODS.forEach(function(method) {
+                var cell = document.createElement('div');
+                cell.className = 'abl-grid__cell';
+                var img = document.createElement('img');
+                img.src = method.path(scene.key, pad4(frameIdx));
+                img.alt = '';
+                img.loading = 'lazy';
+                img.style.width = '100%';
+                img.style.display = 'block';
+                cell.appendChild(img);
+                grid.appendChild(cell);
+              });
+              container.appendChild(grid);
+            });
+            slide.appendChild(container);
+            track.appendChild(slide);
+          });
+
+          var slides = track.querySelectorAll('.carousel-slide');
+          var total = slides.length;
+          if (total === 0) return;
+          var current = 0;
+
+          for (var i = 0; i < total; i++) {
+            var dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Go to scene ' + (i + 1));
+            dot.dataset.index = String(i);
+            dotsContainer.appendChild(dot);
+          }
+          var dots = dotsContainer.querySelectorAll('.carousel-dot');
+          carousel.style.setProperty('--carousel-slides', String(total));
+
+          function goTo(index) {
+            if (index < 0) index = total - 1;
+            if (index >= total) index = 0;
+            current = index;
+            track.style.transform = 'translateX(-' + (current * 100 / total) + '%)';
+            captionEl.textContent = slides[current].dataset.caption || '';
+            dots.forEach(function(d, j) { d.classList.toggle('active', j === current); });
+          }
+
+          carousel.querySelector('.carousel-arrow.prev').addEventListener('click', function() { goTo(current - 1); });
+          carousel.querySelector('.carousel-arrow.next').addEventListener('click', function() { goTo(current + 1); });
+          dotsContainer.addEventListener('click', function(e) {
+            if (e.target.classList.contains('carousel-dot')) goTo(parseInt(e.target.dataset.index, 10));
+          });
+          goTo(0);
+          carousel.addEventListener('click', function() { carousel.focus({ preventScroll: true }); });
+        })();
+        </script>
+        <p class="content has-text-justified" style="margin-top: 2em;">
+          <b>Ablation of LDI and harmonic blending.</b> Rendered frames from 3D worlds generated with and without LDI, and with alternative blending strategies (naive blending, depth interpolation, depth inpainting) replacing harmonic blending. Both ablations lead to consistent drops across all metrics, highlighting the importance of each component. In particular, harmonic blending improves completeness and visual quality in transition regions, while LDI is critical for handling occlusions and maintaining geometric and cross-view consistency.
+        </p>
       </div>
     </div>
   </div>
@@ -907,6 +1163,343 @@
             In <b>Stage III</b>, all spheres and filling blocks are assembled to produce the complete 3D world. 
           </p>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section" id="additional-experiments">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Additional Experiments</h2>
+
+        <h3 class="title is-4" style="margin-top: 1.5rem; margin-bottom: 1rem;">LDI Qualitative Comparisons</h3>
+        <div class="qual-panel-widget">
+          <div class="qual-panel-top-row">
+            <div class="qual-panel-corner-spacer" aria-hidden="true"></div>
+            <div class="qual-panel-column-headings">
+              <div class="qual-panel-column-headings__label">Input + detected foreground (blue)</div>
+              <div class="qual-panel-column-headings__label">Inpainted background after removing detected foreground</div>
+            </div>
+          </div>
+          <div class="qual-panel-body">
+            <div class="qual-panel-row-labels" id="ldiPanelRowLabels"></div>
+            <div class="video-carousel carousel--panel" id="ldiPanelCarousel" tabindex="0">
+              <button type="button" class="carousel-arrow prev" aria-label="Previous scene">
+                <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+              </button>
+              <button type="button" class="carousel-arrow next" aria-label="Next scene">
+                <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+              </button>
+              <div class="carousel-track" id="ldiPanelCarouselTrack"></div>
+              <p class="carousel-caption" id="ldiPanelCarouselCaption"></p>
+              <div class="carousel-dots" id="ldiPanelCarouselDots"></div>
+            </div>
+          </div>
+        </div>
+        <script>
+        (function() {
+          var LDI_BASE = './static/images/ldi-qualitative-visuals';
+
+          var LDI_METHODS = [
+            { key: 'sphericaldreamer', label: 'SphericalDreamer (ours)' },
+            { key: 'lp3d', label: 'LayerPano3D' },
+            { key: '3dp', label: '3D Photography' }
+          ];
+
+          var LDI_SCENES = [
+            {
+              caption: 'Misty Bamboo Forest',
+              images: {
+                sphericaldreamer: {
+                  fg: LDI_BASE + '/sphericaldreamer/misty_bamboo_forest_dream_01_pano_rgb.webp',
+                  bg: LDI_BASE + '/sphericaldreamer/misty_bamboo_forest_dream_01_pano_background.webp'
+                },
+                lp3d: {
+                  fg: LDI_BASE + '/lp3d/misty_bamboo_forest_source.webp',
+                  bg: LDI_BASE + '/lp3d/misty_bamboo_forest_bg.webp'
+                },
+                '3dp': {
+                  fg: LDI_BASE + '/3dp/misty_bamboo_forest_overlay_mask.webp',
+                  bg: LDI_BASE + '/3dp/misty_bamboo_forest_new_bg.webp'
+                }
+              }
+            },
+            {
+              caption: 'Stone Pillar Desert',
+              images: {
+                sphericaldreamer: {
+                  fg: LDI_BASE + '/sphericaldreamer/stone_pillar_desert_2_dream_02_pano_rgb.webp',
+                  bg: LDI_BASE + '/sphericaldreamer/stone_pillar_desert_2_dream_02_pano_background.webp'
+                },
+                lp3d: {
+                  fg: LDI_BASE + '/lp3d/stone_pillar_desert_2_source.webp',
+                  bg: LDI_BASE + '/lp3d/stone_pillar_desert_2_bg.webp'
+                },
+                '3dp': {
+                  fg: LDI_BASE + '/3dp/stone_pillar_desert_2_overlay_mask.webp',
+                  bg: LDI_BASE + '/3dp/stone_pillar_desert_2_new_bg.webp'
+                }
+              }
+            },
+            {
+              caption: 'Fungal Underground',
+              images: {
+                sphericaldreamer: {
+                  fg: LDI_BASE + '/sphericaldreamer/fungal_underground_colony_dream_02_pano_rgb.webp',
+                  bg: LDI_BASE + '/sphericaldreamer/fungal_underground_colony_dream_02_pano_background.webp'
+                },
+                lp3d: {
+                  fg: LDI_BASE + '/lp3d/fungal_underground_colony_source.webp',
+                  bg: LDI_BASE + '/lp3d/fungal_underground_colony_bg.webp'
+                },
+                '3dp': {
+                  fg: LDI_BASE + '/3dp/fungal_underground_colony_overlay_mask.webp',
+                  bg: LDI_BASE + '/3dp/fungal_underground_colony_new_bg.webp'
+                }
+              }
+            }
+          ];
+
+          var rowLabelsEl = document.getElementById('ldiPanelRowLabels');
+          LDI_METHODS.forEach(function(m) {
+            var row = document.createElement('div');
+            row.className = 'qual-panel-row-label';
+            var inner = document.createElement('span');
+            inner.className = 'qual-panel-row-label__text';
+            inner.textContent = m.label;
+            row.appendChild(inner);
+            rowLabelsEl.appendChild(row);
+          });
+
+          var track = document.getElementById('ldiPanelCarouselTrack');
+          var captionEl = document.getElementById('ldiPanelCarouselCaption');
+          var dotsContainer = document.getElementById('ldiPanelCarouselDots');
+          var carousel = document.getElementById('ldiPanelCarousel');
+
+          LDI_SCENES.forEach(function(scene) {
+            var slide = document.createElement('div');
+            slide.className = 'carousel-slide qual-panel-slide';
+            slide.dataset.caption = scene.caption;
+            var wrap = document.createElement('div');
+            wrap.className = 'qual-panel';
+            var rowsWrap = document.createElement('div');
+            rowsWrap.className = 'qual-panel__rows';
+            LDI_METHODS.forEach(function(method) {
+              var pair = scene.images[method.key];
+              var rowEl = document.createElement('div');
+              rowEl.className = 'qual-panel__row';
+              [pair.fg, pair.bg].forEach(function(src) {
+                var cell = document.createElement('div');
+                cell.className = 'qual-panel__cell';
+                var img = document.createElement('img');
+                img.className = 'qual-panel__img';
+                img.src = src;
+                img.alt = '';
+                img.loading = 'lazy';
+                img.addEventListener('load', scheduleLdiRowSync);
+                img.addEventListener('error', scheduleLdiRowSync);
+                cell.appendChild(img);
+                rowEl.appendChild(cell);
+              });
+              rowsWrap.appendChild(rowEl);
+            });
+            wrap.appendChild(rowsWrap);
+            slide.appendChild(wrap);
+            track.appendChild(slide);
+          });
+
+          var slides = track.querySelectorAll('.carousel-slide');
+          var total = slides.length;
+          if (total === 0) return;
+          var current = 0;
+          var ldiRowSyncTimer = null;
+
+          for (var i = 0; i < total; i++) {
+            var dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Go to scene ' + (i + 1));
+            dot.dataset.index = String(i);
+            dotsContainer.appendChild(dot);
+          }
+          var dots = dotsContainer.querySelectorAll('.carousel-dot');
+          carousel.style.setProperty('--carousel-slides', String(total));
+
+          function syncLdiRowHeights() {
+            if (!slides || !slides.length) return;
+            var slide = slides[current];
+            if (!slide || !rowLabelsEl) return;
+            var imgRows = slide.querySelectorAll('.qual-panel__row');
+            var labels = rowLabelsEl.querySelectorAll('.qual-panel-row-label');
+            for (var i = 0; i < labels.length; i++) {
+              var row = imgRows[i];
+              var h = row ? row.getBoundingClientRect().height : 0;
+              labels[i].style.minHeight = h > 0 ? h + 'px' : '';
+            }
+          }
+          function scheduleLdiRowSync() {
+            if (ldiRowSyncTimer) clearTimeout(ldiRowSyncTimer);
+            ldiRowSyncTimer = setTimeout(function() {
+              ldiRowSyncTimer = null;
+              syncLdiRowHeights();
+            }, 30);
+          }
+
+          function goTo(index) {
+            if (index < 0) index = total - 1;
+            if (index >= total) index = 0;
+            current = index;
+            track.style.transform = 'translateX(-' + (current * 100 / total) + '%)';
+            captionEl.textContent = slides[current].dataset.caption || '';
+            dots.forEach(function(d, j) {
+              d.classList.toggle('active', j === current);
+            });
+            scheduleLdiRowSync();
+            setTimeout(scheduleLdiRowSync, 520);
+          }
+
+          carousel.querySelector('.carousel-arrow.prev').addEventListener('click', function() { goTo(current - 1); });
+          carousel.querySelector('.carousel-arrow.next').addEventListener('click', function() { goTo(current + 1); });
+          dotsContainer.addEventListener('click', function(e) {
+            var t = e.target;
+            if (t.classList.contains('carousel-dot')) {
+              goTo(parseInt(t.dataset.index, 10));
+            }
+          });
+          goTo(0);
+          window.addEventListener('resize', scheduleLdiRowSync);
+          track.addEventListener('transitionend', function(e) {
+            if (e.propertyName === 'transform') scheduleLdiRowSync();
+          });
+          carousel.addEventListener('click', function() {
+            carousel.focus({ preventScroll: true });
+          });
+          document.addEventListener('keydown', function(e) {
+            if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+            if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+            if (!carousel.contains(document.activeElement)) return;
+            e.preventDefault();
+            if (e.key === 'ArrowLeft') goTo(current - 1);
+            else goTo(current + 1);
+          });
+        })();
+        </script>
+        <p class="content has-text-justified" style="margin-top: 2em;">
+          <b>Qualitative comparison of layered depth image generation.</b> Foreground detection masks and inpainted backgrounds produced by SphericalDreamer, LayerPano3D, and 3D Photography. SphericalDreamer produces more realistic background panoramas and fewer artifacts, owing to more accurate foreground segmentation and occlusion-aware mask estimation compared to prior approaches.
+        </p>
+
+        <h3 class="title is-4" style="margin-top: 2.5rem; margin-bottom: 1rem;">Harmonic Blending: Comparisons with Other Alternatives</h3>
+        <div class="has-text-centered">
+          <img src="./static/images/hblending-comparison.webp" alt="Harmonic blending comparison with other alternatives" style="width: 100%; max-width: 100%;" loading="lazy" />
+        </div>
+        <p class="content has-text-justified" style="margin-top: 2em;">
+          <b>Qualitative comparison of depth completion methods.</b> Masked regions of a reference depth map reconstructed via harmonic blending, bilinear interpolation, and diffusion-based depth inpainting (InFusion). Harmonic blending produces the smoothest transitions between known and reconstructed regions without introducing artifacts. Quantitatively, it achieves the best Depth Transition Score (measuring depth discontinuity at the blending boundary) and the lowest Transition Region MAE (measuring deviation from ground-truth depth near the boundary), confirming that our blending strategy ensures seamless geometric alignment in overlapping areas.
+        </p>
+
+        <h3 class="title is-4" style="margin-top: 2.5rem; margin-bottom: 1rem;">Geometry Evaluation</h3>
+        <div class="qual-panel-widget">
+          <div class="qual-panel-body">
+            <div class="qual-panel-row-labels" id="depthPanelRowLabels"></div>
+            <div class="qual-panel" id="depthStaticPanel">
+              <div class="qual-panel__rows" id="depthPanelRows"></div>
+            </div>
+          </div>
+        </div>
+        <script>
+        (function() {
+          var DEPTH_BASE = './static/images/depth-comparison-visuals';
+          var IMAGE_INDICES = [7, 10, 13];
+
+          var DEPTH_METHODS = [
+            { key: '360monodepth_rescaled', label: 'SphericalDreamer<br>(via 360MonoDepth)' },
+            { key: 'BiFuseV2_st3d',        label: 'BiFuse V2' },
+            { key: 'EGFormer_st3d',         label: 'EGFormer' },
+            { key: 'HoHoNet_st3d',          label: 'HoHoNet' },
+            { key: 'UniFuse_st3d',          label: 'UniFuse' }
+          ];
+
+          var ROW_LABELS = ['Input'].concat(DEPTH_METHODS.map(function(m) { return m.label; }));
+
+          function pad4(n) {
+            return ('0000' + n).slice(-4);
+          }
+
+          var rowLabelsEl = document.getElementById('depthPanelRowLabels');
+          ROW_LABELS.forEach(function(text) {
+            var row = document.createElement('div');
+            row.className = 'qual-panel-row-label';
+            var inner = document.createElement('span');
+            inner.className = 'qual-panel-row-label__text';
+            inner.innerHTML = text;
+            row.appendChild(inner);
+            rowLabelsEl.appendChild(row);
+          });
+
+          var rowsWrap = document.getElementById('depthPanelRows');
+          var depthRowSyncTimer = null;
+
+          function syncDepthRowHeights() {
+            var imgRows = rowsWrap.querySelectorAll('.qual-panel__row');
+            var labels = rowLabelsEl.querySelectorAll('.qual-panel-row-label');
+            for (var i = 0; i < labels.length; i++) {
+              var row = imgRows[i];
+              var h = row ? row.getBoundingClientRect().height : 0;
+              labels[i].style.minHeight = h > 0 ? h + 'px' : '';
+            }
+          }
+          function scheduleDepthRowSync() {
+            if (depthRowSyncTimer) clearTimeout(depthRowSyncTimer);
+            depthRowSyncTimer = setTimeout(function() {
+              depthRowSyncTimer = null;
+              syncDepthRowHeights();
+            }, 30);
+          }
+
+          var inputRow = document.createElement('div');
+          inputRow.className = 'qual-panel__row';
+          IMAGE_INDICES.forEach(function(idx) {
+            var cell = document.createElement('div');
+            cell.className = 'qual-panel__cell';
+            var img = document.createElement('img');
+            img.className = 'qual-panel__img';
+            img.src = DEPTH_BASE + '/rgb/' + pad4(idx) + '.webp';
+            img.alt = '';
+            img.loading = 'lazy';
+            img.addEventListener('load', scheduleDepthRowSync);
+            img.addEventListener('error', scheduleDepthRowSync);
+            cell.appendChild(img);
+            inputRow.appendChild(cell);
+          });
+          rowsWrap.appendChild(inputRow);
+
+          DEPTH_METHODS.forEach(function(method) {
+            var methodRow = document.createElement('div');
+            methodRow.className = 'qual-panel__row';
+            IMAGE_INDICES.forEach(function(idx) {
+              var cell = document.createElement('div');
+              cell.className = 'qual-panel__cell';
+              var img = document.createElement('img');
+              img.className = 'qual-panel__img';
+              img.src = DEPTH_BASE + '/predicted-depth/' + method.key + '/plasma/' + pad4(idx) + '.webp';
+              img.alt = '';
+              img.loading = 'lazy';
+              img.addEventListener('load', scheduleDepthRowSync);
+              img.addEventListener('error', scheduleDepthRowSync);
+              cell.appendChild(img);
+              methodRow.appendChild(cell);
+            });
+            rowsWrap.appendChild(methodRow);
+          });
+
+          window.addEventListener('resize', scheduleDepthRowSync);
+          scheduleDepthRowSync();
+        })();
+        </script>
+        <p class="content has-text-justified" style="margin-top: 2em;">
+          <b>Qualitative comparison of depth estimation.</b> Depth maps predicted by SphericalDreamer (via 360MonoDepth) and dedicated 360° depth estimation models (BiFuse V2, EGFormer, HoHoNet, UniFuse). SphericalDreamer produces the most accurate depth maps with the fewest artifacts. Quantitatively, it consistently outperforms all baselines on the Replica2K dataset across all standard depth metrics (AbsRel, RMSE, SI-RMSE, and δ accuracy thresholds), confirming the quality of the underlying 3D geometry.
+        </p>
+
       </div>
     </div>
   </div>
