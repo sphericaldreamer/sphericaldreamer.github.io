@@ -1049,15 +1049,15 @@
           ];
           var METHODS = [
             { label: 'Reference\n(LDI + Harmonic Blending)',
-              path: function(s, f) { return BASE + '/' + s + '/sphericaldreamer/rgb/_temp_' + f + '.webp'; } },
+              path: function(s, f) { return BASE + '/' + s + '/frame_' + f + '.webp'; } },
             { label: 'No LDI',
-              path: function(s, f) { return BASE + '/ABL_HblendLdi--' + s + '--ldi/sphericaldreamer/rgb/_temp_' + f + '.webp'; } },
+              path: function(s, f) { return BASE + '/no-ldi--' + s + '/frame_' + f + '.webp'; } },
             { label: 'No Harmonic Blending\n(Naive Blending instead)',
-              path: function(s, f) { return BASE + '/ABL_HblendLdi--' + s + '--ldi+hblend=naive/sphericaldreamer/rgb/_temp_' + f + '.webp'; } },
+              path: function(s, f) { return BASE + '/no-hblend-naive--' + s + '/frame_' + f + '.webp'; } },
             { label: 'No Harmonic Blending\n(Depth Interpolation instead)',
-              path: function(s, f) { return BASE + '/ABL_HblendLdi--' + s + '--ldi+hblend=interp_bilinear_plus_nn/sphericaldreamer/rgb/_temp_' + f + '.webp'; } },
+              path: function(s, f) { return BASE + '/no-hblend-interp--' + s + '/frame_' + f + '.webp'; } },
             { label: 'No Harmonic Blending\n(Depth Inpainting instead)',
-              path: function(s, f) { return BASE + '/ABL_HblendLdi--' + s + '--ldi+hblend=inpaint/sphericaldreamer/rgb/_temp_' + f + '.webp'; } }
+              path: function(s, f) { return BASE + '/no-hblend-inpaint--' + s + '/frame_' + f + '.webp'; } }
           ];
           var cols = METHODS.length;
 
