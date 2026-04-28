@@ -256,6 +256,24 @@
           </div>
 
           <script>
+          // Shared swipe helper — attaches touch listeners to a carousel element.
+          // onLeft = swipe left (next), onRight = swipe right (prev).
+          function addSwipe(el, onLeft, onRight) {
+            var sx = null;
+            el.addEventListener('touchstart', function(e) {
+              sx = e.touches[0].clientX;
+            }, { passive: true });
+            el.addEventListener('touchend', function(e) {
+              if (sx === null) return;
+              var dx = e.changedTouches[0].clientX - sx;
+              sx = null;
+              if (Math.abs(dx) < 40) return;
+              if (dx < 0) onLeft(); else onRight();
+            }, { passive: true });
+          }
+          </script>
+
+          <script>
           (function() {
             var GAP = 14;
             var TRANSITION_MS = 500;
@@ -271,7 +289,8 @@
 
             var slidesOrig = Array.prototype.slice.call(track.querySelectorAll('.carousel-slide'));
             var realTotal = slidesOrig.length;
-            var visible = 3;
+            function getVisible() { return window.innerWidth <= 768 ? 1 : 3; }
+            var visible = getVisible();
             var infinite = realTotal > visible;
             var maxIdx = infinite ? (realTotal - 1) : Math.max(0, realTotal - visible);
             var clonePad = visible + 2;
@@ -473,6 +492,7 @@
             }
 
             function syncLayout() {
+              visible = getVisible();
               var W = tripleViewport ? tripleViewport.clientWidth : carousel.clientWidth;
               if (!W || W < 1) {
                 requestAnimationFrame(syncLayout);
@@ -618,6 +638,7 @@
 
             btnPrev.addEventListener('click', function() { goStep(-1); });
             btnNext.addEventListener('click', function() { goStep(1); });
+            addSwipe(carousel, function() { goStep(1); }, function() { goStep(-1); });
 
             dotsContainer.addEventListener('click', function(e) {
               if (e.target.classList.contains('carousel-dot')) {
@@ -817,6 +838,7 @@
 
           carousel.querySelector('.carousel-arrow.prev').addEventListener('click', function() { goTo(current - 1); });
           carousel.querySelector('.carousel-arrow.next').addEventListener('click', function() { goTo(current + 1); });
+          addSwipe(carousel, function() { goTo(current + 1); }, function() { goTo(current - 1); });
           dotsContainer.addEventListener('click', function(e) {
             if (e.target.classList.contains('carousel-dot')) goTo(parseInt(e.target.dataset.index, 10));
           });
@@ -825,7 +847,7 @@
         })();
         </script>
         <p class="content has-text-justified" style="margin-top: 2em;">
-          <b>Effect of the number of fused panoramas (N) on world generation.</b> 3D worlds generated with varying numbers of fused panoramas (N&nbsp;=&nbsp;3, 5, 7). Perceptual quality metrics (BRISQUE, CLIP-IQA, Q-Align) and semantic consistency scores (CLIP-Score, C-CLIP) remain stable across all world sizes, demonstrating that SphericalDreamer scales effectively with N without quality degradation.
+          <b>Generating longer worlds.</b> 3D worlds generated with varying numbers of fused panoramas (N&nbsp;=&nbsp;3, 5, 7). 
         </p>
 
         <h3 class="title is-4" style="margin-top: 2.5rem; margin-bottom: 1rem;">Comparisons with Related Methods</h3>
@@ -1019,6 +1041,7 @@
 
           carousel.querySelector('.carousel-arrow.prev').addEventListener('click', function() { goTo(current - 1); });
           carousel.querySelector('.carousel-arrow.next').addEventListener('click', function() { goTo(current + 1); });
+          addSwipe(carousel, function() { goTo(current + 1); }, function() { goTo(current - 1); });
           dotsContainer.addEventListener('click', function(e) {
             var t = e.target;
             if (t.classList.contains('carousel-dot')) {
@@ -1159,6 +1182,7 @@
 
           carousel.querySelector('.carousel-arrow.prev').addEventListener('click', function() { goTo(current - 1); });
           carousel.querySelector('.carousel-arrow.next').addEventListener('click', function() { goTo(current + 1); });
+          addSwipe(carousel, function() { goTo(current + 1); }, function() { goTo(current - 1); });
           dotsContainer.addEventListener('click', function(e) {
             if (e.target.classList.contains('carousel-dot')) goTo(parseInt(e.target.dataset.index, 10));
           });
@@ -1167,7 +1191,7 @@
         })();
         </script>
         <p class="content has-text-justified" style="margin-top: 2em;">
-          <b>Ablation of LDI and harmonic blending.</b> Rendered frames from 3D worlds generated with and without LDI, and with alternative blending strategies (naive blending, depth interpolation, depth inpainting) replacing harmonic blending. Both ablations lead to consistent drops across all metrics, highlighting the importance of each component. In particular, harmonic blending improves completeness and visual quality in transition regions, while LDI is critical for handling occlusions and maintaining geometric and cross-view consistency.
+          <b>Ablation of LDI and harmonic blending.</b> Rendered frames from 3D worlds generated with and without LDI, and with alternative blending strategies (naive blending, depth interpolation, depth inpainting) replacing harmonic blending. 
         </p>
       </div>
     </div>
@@ -1389,6 +1413,7 @@
 
           carousel.querySelector('.carousel-arrow.prev').addEventListener('click', function() { goTo(current - 1); });
           carousel.querySelector('.carousel-arrow.next').addEventListener('click', function() { goTo(current + 1); });
+          addSwipe(carousel, function() { goTo(current + 1); }, function() { goTo(current - 1); });
           dotsContainer.addEventListener('click', function(e) {
             var t = e.target;
             if (t.classList.contains('carousel-dot')) {
