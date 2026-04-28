@@ -8,6 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SphericalDreamer</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
 
@@ -208,43 +210,43 @@
               </div>
               <div class="carousel-slide" data-caption="Desolated landscape">
                 <div class="triple-slide-media">
-                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/desolated_landscape.mp4" type="video/mp4"></video>
+                  <video autoplay muted playsinline preload="none" data-triple-video><source src="./static/videos/3d_worlds/desolated_landscape.mp4" type="video/mp4"></video>
                 </div>
                 <p class="carousel-caption triple-slide-caption">Desolated landscape</p>
               </div>
               <div class="carousel-slide" data-caption="Tomato fields">
                 <div class="triple-slide-media">
-                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/tomato_fields.mp4" type="video/mp4"></video>
+                  <video autoplay muted playsinline preload="none" data-triple-video><source src="./static/videos/3d_worlds/tomato_fields.mp4" type="video/mp4"></video>
                 </div>
                 <p class="carousel-caption triple-slide-caption">Tomato fields</p>
               </div>
               <div class="carousel-slide" data-caption="Wetlands">
                 <div class="triple-slide-media">
-                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/wetlands.mp4" type="video/mp4"></video>
+                  <video autoplay muted playsinline preload="none" data-triple-video><source src="./static/videos/3d_worlds/wetlands.mp4" type="video/mp4"></video>
                 </div>
                 <p class="carousel-caption triple-slide-caption">Wetlands</p>
               </div>
               <div class="carousel-slide" data-caption="Alien forest">
                 <div class="triple-slide-media">
-                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/alien_forest.mp4" type="video/mp4"></video>
+                  <video autoplay muted playsinline preload="none" data-triple-video><source src="./static/videos/3d_worlds/alien_forest.mp4" type="video/mp4"></video>
                 </div>
                 <p class="carousel-caption triple-slide-caption">Alien forest</p>
               </div>
               <div class="carousel-slide" data-caption="Martian desert">
                 <div class="triple-slide-media">
-                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/martian_desert.mp4" type="video/mp4"></video>
+                  <video autoplay muted playsinline preload="none" data-triple-video><source src="./static/videos/3d_worlds/martian_desert.mp4" type="video/mp4"></video>
                 </div>
                 <p class="carousel-caption triple-slide-caption">Martian desert</p>
               </div>
               <div class="carousel-slide" data-caption="Grass field">
                 <div class="triple-slide-media">
-                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/grass_field.mp4" type="video/mp4"></video>
+                  <video autoplay muted playsinline preload="none" data-triple-video><source src="./static/videos/3d_worlds/grass_field.mp4" type="video/mp4"></video>
                 </div>
                 <p class="carousel-caption triple-slide-caption">Grass field</p>
               </div>
               <div class="carousel-slide" data-caption="Underwater world">
                 <div class="triple-slide-media">
-                  <video autoplay muted playsinline preload="auto" data-triple-video><source src="./static/videos/3d_worlds/underwater.mp4" type="video/mp4"></video>
+                  <video autoplay muted playsinline preload="none" data-triple-video><source src="./static/videos/3d_worlds/underwater.mp4" type="video/mp4"></video>
                 </div>
                 <p class="carousel-caption triple-slide-caption">Underwater world</p>
               </div>
@@ -420,6 +422,25 @@
             }
 
             refreshGroups();
+
+            // Track which logical indices have been triggered for preload.
+            // Slides 0-3 start with preload="auto" in HTML; the rest are "none".
+            var videoPreloaded = [];
+            for (var vi = 0; vi < realTotal; vi++) videoPreloaded[vi] = vi < 4;
+
+            // Trigger preload for a logical index that still has preload="none".
+            function preloadLogicalVideo(idx) {
+              idx = ((idx % realTotal) + realTotal) % realTotal;
+              if (videoPreloaded[idx]) return;
+              videoPreloaded[idx] = true;
+              var slide = slidesOrig[idx];
+              if (!slide) return;
+              var v = slide.querySelector('[data-triple-video]');
+              if (!v || v.preload === 'auto') return;
+              v.preload = 'auto';
+              v.load();
+            }
+
             Array.prototype.forEach.call(track.querySelectorAll('[data-triple-video]'), function(v) {
               v.defaultPlaybackRate = PLAYBACK_RATE;
               v.playbackRate = PLAYBACK_RATE;
@@ -508,6 +529,7 @@
               resumeAllVideos();
               updateButtons();
               updateDots();
+              preloadLogicalVideo(current + visible);
             }
 
             function finishForwardWrap() {
@@ -519,6 +541,7 @@
               resumeAllVideos();
               updateDots();
               updateButtons();
+              preloadLogicalVideo(current + visible);
             }
 
             function finishBackwardWrap() {
@@ -530,6 +553,7 @@
               resumeAllVideos();
               updateDots();
               updateButtons();
+              preloadLogicalVideo(current + visible);
             }
 
             function goStep(delta) {
@@ -547,6 +571,7 @@
                 resumeAllVideos();
                 updateButtons();
                 updateDots();
+                preloadLogicalVideo(current + visible);
                 return;
               }
 
@@ -583,6 +608,7 @@
               resumeAllVideos();
               updateButtons();
               updateDots();
+              preloadLogicalVideo(current + visible);
             }
 
             window.__navTripleGallery = function(delta) {
@@ -842,7 +868,7 @@
             'Desert'
           ];
           function qxCam(methodFolder, cam) {
-            var suf = cam === 1 ? 'eqr_x0.png' : 'eqr_x1.png';
+            var suf = cam === 1 ? 'eqr_x0.webp' : 'eqr_x1.webp';
             return QX_SCENES.map(function(scene) {
               return QX_BASE + '/' + scene + '/' + methodFolder + '/' + suf;
             });
@@ -1093,6 +1119,8 @@
                 var img = document.createElement('img');
                 img.src = method.path(scene.key, pad4(frameIdx));
                 img.alt = '';
+                img.loading = 'lazy';
+                img.decoding = 'async';
                 img.style.width = '100%';
                 img.style.display = 'block';
                 cell.appendChild(img);
@@ -1153,7 +1181,7 @@
         <br>
         <div class="content has-text-justified">
           <div class="columns is-centered has-text-centered method-figure-wrap">
-            <img src="static/images/method_main.svg" alt="Method Scheme" style="width: 97%; height: auto;"/>
+            <img src="static/images/method_main.svg" alt="Method Scheme" style="width: 97%; height: auto;" loading="lazy" decoding="async"/>
           </div>
           <p class="method-overview-caption">
             <b>Method overview.</b>
