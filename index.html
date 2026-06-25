@@ -62,12 +62,12 @@
           <div class="column has-text-centered">
             <div class="publication-links">
               <span class="link-block">
-                <a href=""
+                <a href="https://openreview.net/forum?id=iyeNyj06Nt"
                    class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                   </span>
-                  <span>OpenReview (coming soon)</span>
+                  <span>OpenReview</span>
                 </a>
               </span>
               <span class="link-block">
@@ -1572,6 +1572,146 @@
     </code></pre>
   </div>
 </section>
+<section class="section" id="immersive-showcase">
+  <style>
+    #immersive-showcase {
+      background: radial-gradient(ellipse at 50% 0%, #0a0f2e 0%, #050810 60%, #000000 100%);
+      padding: 5rem 1.5rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #immersive-showcase::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(0, 200, 255, 0.06) 0%, transparent 55%),
+        radial-gradient(circle at 80% 40%, rgba(120, 0, 255, 0.07) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .immersive-tagline {
+      font-family: 'Google Sans', sans-serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: rgba(200, 230, 255, 0.82);
+      text-align: center;
+      margin-bottom: 3.5rem;
+      line-height: 1.6;
+    }
+    .immersive-tagline em {
+      font-style: normal;
+      background: linear-gradient(90deg, #38d9ff 0%, #a259ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .immersive-duo {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .immersive-card {
+      flex: 1 1 380px;
+      max-width: 560px;
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(56, 217, 255, 0.18),
+        0 8px 40px rgba(0, 0, 0, 0.7),
+        0 0 60px rgba(56, 217, 255, 0.06);
+      transition: box-shadow 0.35s ease, transform 0.35s ease;
+    }
+    .immersive-card:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 0 0 1px rgba(56, 217, 255, 0.35),
+        0 16px 60px rgba(0, 0, 0, 0.8),
+        0 0 80px rgba(56, 217, 255, 0.12);
+    }
+    .immersive-card video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: 16px 16px 0 0;
+    }
+    .immersive-caption {
+      background: linear-gradient(135deg, rgba(10,20,50,0.95) 0%, rgba(5,10,30,0.98) 100%);
+      border-top: 1px solid rgba(56, 217, 255, 0.15);
+      padding: 0.9rem 1.2rem 1rem;
+      text-align: center;
+    }
+    .immersive-caption .cap-title {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: rgba(200, 230, 255, 0.9);
+      letter-spacing: 0.03em;
+      line-height: 1.4;
+    }
+    .immersive-caption .cap-sub {
+      font-size: 0.78rem;
+      color: rgba(100, 180, 220, 0.55);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+    }
+    .immersive-corner {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      width: 28px;
+      height: 28px;
+      pointer-events: none;
+    }
+    .immersive-corner::before,
+    .immersive-corner::after {
+      content: '';
+      position: absolute;
+      background: rgba(56, 217, 255, 0.55);
+    }
+    .immersive-corner::before { top: 0; right: 0; width: 2px; height: 14px; }
+    .immersive-corner::after  { top: 0; right: 0; width: 14px; height: 2px; }
+  </style>
+
+  <div class="container is-max-desktop">
+    <p class="immersive-tagline">
+      Generate an immersive environment for <em>any world you can imagine</em> —<br>
+      and step inside it.
+    </p>
+
+    <div class="immersive-duo">
+
+      <div class="immersive-card">
+        <video autoplay muted loop playsinline preload="auto">
+          <source src="./static/videos/ablation_N_walk/ABL_N--bioluminescent_forest_2--N=7__rendered_trajectories__walk.mp4" type="video/mp4">
+        </video>
+        <div class="immersive-corner"></div>
+        <div class="immersive-caption">
+          <div class="cap-title">A forest of bioluminescent whispers.</div>
+          <div class="cap-sub">Alien Forest · Bioluminescent</div>
+        </div>
+      </div>
+
+      <div class="immersive-card">
+        <video autoplay muted loop playsinline preload="auto">
+          <source src="./static/videos/ablation_N_walk/ABL_N--phantom_opera_cave_river--N=7__rendered_trajectories__walk.mp4" type="video/mp4">
+        </video>
+        <div class="immersive-corner"></div>
+        <div class="immersive-caption">
+          <div class="cap-title">A river hums beneath vaults of dim stone.</div>
+          <div class="cap-sub">Phantom Cave · River &amp; Dim Light</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <footer class="footer">
   <div class="container">
     <div class="columns is-centered">
